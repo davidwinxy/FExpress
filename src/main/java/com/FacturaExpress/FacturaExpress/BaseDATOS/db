@@ -1,0 +1,13 @@
+USE asistenciadb
+ INSERT INTO usuarios (login, clave, STATUS) values
+ ('admin', '{noop}admin123',1),
+ ('docente', '{noop}docente123',1),
+ ('user3', '{noop}password3',0);
+
+ INSERT INTO roles (nombre) VALUES ('admin'), ('docente');
+
+
+ INSERT INTO usuario_rol (usuario_id, rol_id) VALUES
+ (1,1),
+ (2,2),
+ (3,2);
