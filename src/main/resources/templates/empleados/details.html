@@ -5,6 +5,10 @@
 
 <head>
     <title>Detalle del empleado</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,23 +29,26 @@
             margin-bottom: 20px;
             color: #343a40;
         }
-        .dl-horizontal dt {
-            font-weight: bold;
-            width: 25%;
-            float: left;
-            clear: left;
-            text-align: left;
-            margin-bottom: 10px;
+        .form-group {
+            margin-bottom: 1rem;
         }
-        .dl-horizontal dd {
-            margin-left: 30%;
-            margin-bottom: 10px;
+        .form-control {
+            padding-left: 3rem; /* Adjust padding for icons */
+        }
+        .input-group-text {
+            padding: 0.375rem 0.75rem; /* Adjust padding to center icon */
+            font-size: 1.25rem; /* Adjust font size for icons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn {
             padding: 10px 20px;
             font-size: 16px;
             border-radius: 5px;
             margin: 5px;
+            display: inline-flex;
+            align-items: center;
         }
         .btn-outline-info {
             color: #007bff;
@@ -76,43 +83,108 @@
         .text-center {
             text-align: center;
         }
+        .btn i {
+            margin-right: 5px;
+        }
     </style>
 </head>
-
 <body>
 <div layout:fragment="content">
     <div class="container">
-        <h1>Detalle del empleado</h1>
+        <h1><i class="fas fa-id-badge"></i> Detalle del empleado</h1>
         <hr>
-        <dl class="dl-horizontal">
-            <dt>ID</dt>
-            <dd th:text="${empleado.id}"></dd>
+        <form>
+            <div class="form-group">
+                <label for="id">ID</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="id" th:value="${empleado.id}" readonly>
+                </div>
+            </div>
 
-            <dt>Nombre</dt>
-            <dd th:text="${empleado.nombre}"></dd>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="nombre" th:value="${empleado.nombre}" readonly>
+                </div>
+            </div>
 
-            <dt>Apellido</dt>
-            <dd th:text="${empleado.apellido}"></dd>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="apellido" th:value="${empleado.apellido}" readonly>
+                </div>
+            </div>
 
-            <dt>Email</dt>
-            <dd th:text="${empleado.email}"></dd>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="email" th:value="${empleado.email}" readonly>
+                </div>
+            </div>
 
-            <dt>Teléfono</dt>
-            <dd th:text="${empleado.telefono}"></dd>
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="telefono" th:value="${empleado.telefono}" readonly>
+                </div>
+            </div>
 
-            <dt>Dirección</dt>
-            <dd th:text="${empleado.direccion}"></dd>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="direccion" th:value="${empleado.direccion}" readonly>
+                </div>
+            </div>
 
-            <dt>Género</dt>
-            <dd th:text="${empleado.genero}"></dd>
-        </dl>
+            <div class="form-group">
+                <label for="genero">Género</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="genero" th:value="${empleado.genero}" readonly>
+                </div>
+            </div>
+        </form>
         <hr>
         <div class="text-center">
-            <a th:href="@{/Empleados/edit/{id}(id=${empleado.id})}" class="btn btn-outline-info">Editar</a>
-            <a th:href="@{/Empleados/remove/{id}(id=${empleado.id})}" class="btn btn-outline-danger">Eliminar</a>
-            <a th:href="@{/Empleados}" class="btn btn-secondary">Regresar</a>
+            <a th:href="@{/Empleados/edit/{id}(id=${empleado.id})}" class="btn btn-outline-info" onclick="return confirmEdit()"><i class="fas fa-edit"></i> Editar</a>
+            <a th:href="@{/Empleados/remove/{id}(id=${empleado.id})}" class="btn btn-outline-danger" onclick="return confirmDelete()"><i class="fas fa-trash-alt"></i> Eliminar</a>
+            <a th:href="@{/Empleados}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
 </div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmEdit() {
+        return confirm('¿Deseas editar este empleado?');
+    }
+
+    function confirmDelete() {
+        return confirm('¿Estás seguro de que deseas eliminar este empleado? ¡No podrás revertir esto!');
+    }
+</script>
 </body>
 </html>

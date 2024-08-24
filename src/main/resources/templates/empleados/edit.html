@@ -1,131 +1,154 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layouts/_mainLayout">
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar empleado</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
         }
         .container {
-            max-width: 600px;
-            margin: 50px auto;
+            max-width: 500px;
+            margin-top: 50px;
             padding: 20px;
             background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            text-align: center;
+            font-size: 24px;
+            color: #007bff; /* Blue color for edit action */
             margin-bottom: 20px;
-            color: #343a40;
+            text-align: center;
         }
         .form-group {
-            margin-bottom: 20px;
+            position: relative;
+            margin-bottom: 1.5rem;
         }
         .form-group label {
             font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            color: #495057;
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-group-prepend {
+            margin-right: 0;
+        }
+        .input-group-text {
+            background-color: #007bff; /* Blue color for icons */
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .form-control {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            transition: border-color 0.3s ease-in-out;
+            padding-left: 2.75rem; /* Adjust padding for icons */
+            border-color: #007bff; /* Blue color for borders */
         }
-        .form-control:focus {
-            border-color: #80bdff;
-            outline: 0;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
-        }
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            margin: 5px;
+        .input-group-text i {
+            font-size: 1rem; /* Adjust icon size */
         }
         .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: #ffffff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+            background-color: #007bff; /* Blue color for primary button */
+            border: none;
         }
         .btn-secondary {
             background-color: #6c757d;
-            border-color: #6c757d;
-            color: #ffffff;
+            border: none;
         }
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #5a6268;
-        }
-        hr {
-            margin: 20px 0;
-            border: 0;
-            border-top: 1px solid #dee2e6;
-        }
-        .text-center {
-            text-align: center;
+        .btn {
+            width: 120px;
+            margin: 10px;
         }
     </style>
 </head>
-
 <body>
-<div layout:fragment="content">
-    <div class="container">
-        <h1>Editar empleado</h1>
-        <form th:action="@{/Empleados/save}" th:object="${empleado}" method="post">
-            <input type="hidden" th:field="*{id}">
+<div class="container">
+    <h1><i class="fas fa-user-edit"></i> Editar empleado</h1>
+    <form id="editForm" th:action="@{/Empleados/save}" method="post">
+        <input type="hidden" name="Id" th:value="${empleado.id}">
 
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Escriba el nombre del empleado" th:field="*{nombre}" required>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="nombre" name="nombre" th:value="${empleado.nombre}" required>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="apellido">Apellido</label>
-                <input type="text" class="form-control" id="apellido" placeholder="Escriba el apellido del empleado" th:field="*{apellido}" required>
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                </div>
+                <input type="text" class="form-control" id="apellido" name="apellido" th:value="${empleado.apellido}" required>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Escriba el email del empleado" th:field="*{email}" required>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                </div>
+                <input type="email" class="form-control" id="email" name="email" th:value="${empleado.email}" required>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" placeholder="Escriba el teléfono del empleado" th:field="*{telefono}" required>
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                </div>
+                <input type="tel" class="form-control" id="telefono" name="telefono" th:value="${empleado.telefono}" required>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="direccion">Dirección</label>
-                <input type="text" class="form-control" id="direccion" placeholder="Escriba la dirección del empleado" th:field="*{direccion}" required>
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                </div>
+                <input type="text" class="form-control" id="direccion" name="direccion" th:value="${empleado.direccion}" required>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="genero">Género</label>
-                <input type="text" class="form-control" id="genero" placeholder="Escriba el género del empleado" th:field="*{genero}" required>
+        <div class="form-group">
+            <label for="genero">Género</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                </div>
+                <input type="text" class="form-control" id="genero" name="genero" th:value="${empleado.genero}" required>
             </div>
+        </div>
 
-            <hr>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                <a th:href="@{/Empleados}" class="btn btn-secondary">Regresar</a>
-            </div>
-        </form>
-    </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+            <a th:href="@{/Empleados}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
+        </div>
+    </form>
 </div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

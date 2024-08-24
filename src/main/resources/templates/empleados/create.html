@@ -14,16 +14,20 @@
         }
         .form-group {
             position: relative;
+            margin-bottom: 1rem;
         }
-        .form-group .form-control-icon {
-            padding-left: 2.5rem; /* Adjust this based on icon size */
+        .form-control {
+            padding-left: 2.75rem; /* Adjust this based on icon size */
         }
-        .form-group .form-control-icon ~ i {
+        .form-group i {
             position: absolute;
             top: 50%;
             left: 0.75rem;
             transform: translateY(-50%);
             color: #007bff;
+        }
+        .form-group .form-control-icon {
+            padding-left: 2.75rem; /* Match this with the icon position */
         }
         .btn-primary {
             background-color: #007bff;
@@ -51,33 +55,57 @@
         <form th:action="@{/Empleados/save}" th:object="${empleado}" method="post">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control form-control-icon" th:field="*{nombre}" id="nombre" placeholder="Escriba el nombre del empleado" required />
-                <i class="fas fa-user"></i>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:field="*{nombre}" id="nombre" placeholder="Escriba el nombre del empleado" required />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido</label>
-                <input type="text" class="form-control form-control-icon" th:field="*{apellido}" id="apellido" placeholder="Escriba el apellido del empleado" required />
-                <i class="fas fa-user-tag"></i>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:field="*{apellido}" id="apellido" placeholder="Escriba el apellido del empleado" required />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control form-control-icon" th:field="*{email}" id="email" placeholder="Escriba el email del empleado" required />
-                <i class="fas fa-envelope"></i>
+                <div class="input-group">
+                    <input type="email" class="form-control form-control-icon" th:field="*{email}" id="email" placeholder="Escriba el email del empleado" required />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input type="text" class="form-control form-control-icon" th:field="*{telefono}" id="telefono" placeholder="Escriba el teléfono del empleado" required />
-                <i class="fas fa-phone"></i>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:field="*{telefono}" id="telefono" placeholder="Escriba el teléfono del empleado" required />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="direccion">Dirección</label>
-                <input type="text" class="form-control form-control-icon" th:field="*{direccion}" id="direccion" placeholder="Escriba la dirección del empleado" required />
-                <i class="fas fa-map-marker-alt"></i>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:field="*{direccion}" id="direccion" placeholder="Escriba la dirección del empleado" required />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="genero">Género</label>
-                <input type="text" class="form-control form-control-icon" th:field="*{genero}" id="genero" placeholder="Escriba el género del empleado" required />
-                <i class="fas fa-venus-mars"></i>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:field="*{genero}" id="genero" placeholder="Escriba el género del empleado" required />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                    </div>
+                </div>
             </div>
             <hr class="my-4">
             <div class="text-center">
