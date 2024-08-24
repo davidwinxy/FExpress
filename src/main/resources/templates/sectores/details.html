@@ -1,0 +1,65 @@
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <title>Detalles del Sector</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: white;
+        }
+        .card-title {
+            margin-bottom: 0;
+        }
+        .card-body {
+            font-size: 1.1rem;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+
+<div layout:fragment="content" class="container mt-4">
+
+    <h1 class="mb-4">Detalles del Sector <i class="fas fa-map-marker-alt"></i></h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Sector: <span th:text="${sector.nombre}"></span></h2>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> <span th:text="${sector.id}"></span></p>
+            <p><strong>Nombre:</strong> <span th:text="${sector.nombre}"></span></p>
+            <p><strong>Descripción:</strong> <span th:text="${sector.descripcion} ?: 'No disponible'"></span></p>
+        </div>
+        <div class="card-footer">
+            <a th:href="@{/Sectores/edit/{id}(id=${sector.id})}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a th:href="@{/Sectores/remove/{id}(id=${sector.id})}" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </a>
+            <a th:href="@{/Sectores}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Volver a la lista
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</html>
