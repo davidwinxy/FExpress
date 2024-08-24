@@ -1,172 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eliminar empleado</title>
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <!-- SweetAlert2 CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <style>
-    body {
-        background-color: #f8f9fa;
-    }
     .container {
-        max-width: 500px;
-        margin-top: 50px;
-        padding: 20px;
-        background-color: #ffffff;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
-    h1 {
-        font-size: 24px;
-        color: #d9534f;
-        margin-bottom: 20px;
-        text-align: center;
+        max-width: 600px;
+        margin: 50px auto;
     }
     .form-group {
         position: relative;
-        margin-bottom: 1.5rem;
-    }
-    .form-group label {
-        font-weight: bold;
-    }
-    .input-group {
-        position: relative;
-    }
-    .input-group-prepend {
-        margin-right: 0;
-    }
-    .input-group-text {
-        background-color: #d9534f;
-        color: white;
-        border: none;
-        border-radius: 0.25rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        margin-bottom: 1rem;
     }
     .form-control {
-        padding-left: 2.75rem; /* Adjust padding for icons */
-        border-color: #d9534f;
+        padding-left: 2.75rem;
     }
-    .input-group-text i {
-        font-size: 1rem; /* Adjust icon size */
+    .form-group i {
+        position: absolute;
+        top: 50%;
+        left: 0.75rem;
+        transform: translateY(-50%);
+        color: #d9534f;
+    }
+    .form-group .form-control-icon {
+        padding-left: 2.75rem;
     }
     .btn-danger {
         background-color: #d9534f;
-        border: none;
+        border-color: #d9534f;
+    }
+    .btn-danger:hover {
+        background-color: #c9302c;
+        border-color: #c12e2a;
     }
     .btn-secondary {
         background-color: #6c757d;
-        border: none;
+        border-color: #6c757d;
     }
-    .btn {
-        width: 120px;
-        margin: 10px;
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script>
+    function confirmDelete(event) {
+        event.preventDefault(); // Detener el envío del formulario
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.submit(); // Enviar el formulario si se confirma la eliminación
+            }
+        });
+    }
+  </script>
 </head>
+
 <body>
-<div class="container">
-  <h1><i class="fas fa-user-times"></i> Eliminar empleado</h1>
-  <form id="deleteForm" th:action="@{/Empleados/delete}" method="post">
-    <input type="hidden" name="Id" th:value="${empleado.id}">
-
-    <div class="form-group">
-      <label for="nombre">Nombre</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-user"></i></span>
+<div layout:fragment="content">
+  <div class="container">
+    <h1 class="text-center mb-4"><i class="fas fa-user-times"></i> Eliminar empleado</h1>
+    <form th:action="@{/Empleados/delete}" method="post" onsubmit="confirmDelete(event)">
+      <input type="hidden" name="id" th:value="${empleado.id}" />
+      <div class="form-group">
+        <label for="id">ID</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-icon" th:value="${empleado.id}" id="id" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+          </div>
         </div>
-        <input type="text" class="form-control" id="nombre" th:value="${empleado.nombre}" readonly>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="apellido">Apellido</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-icon" th:value="${empleado.nombre}" id="nombre" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+          </div>
         </div>
-        <input type="text" class="form-control" id="apellido" th:value="${empleado.apellido}" readonly>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-icon" th:value="${empleado.apellido}" id="apellido" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+          </div>
         </div>
-        <input type="text" class="form-control" id="email" th:value="${empleado.email}" readonly>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="telefono">Teléfono</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <input type="email" class="form-control form-control-icon" th:value="${empleado.email}" id="email" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          </div>
         </div>
-        <input type="text" class="form-control" id="telefono" th:value="${empleado.telefono}" readonly>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="direccion">Dirección</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-icon" th:value="${empleado.telefono}" id="telefono" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+          </div>
         </div>
-        <input type="text" class="form-control" id="direccion" th:value="${empleado.direccion}" readonly>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="genero">Género</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-icon" th:value="${empleado.direccion}" id="direccion" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+          </div>
         </div>
-        <input type="text" class="form-control" id="genero" th:value="${empleado.genero}" readonly>
       </div>
-    </div>
-
-    <div class="text-center">
-      <button type="button" class="btn btn-danger" onclick="confirmDelete()"><i class="fas fa-trash-alt"></i> Eliminar</button>
-      <a th:href="@{/Empleados}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
-    </div>
-  </form>
+      <div class="form-group">
+        <label for="genero">Género</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-icon" th:value="${empleado.genero}" id="genero" readonly />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="text-center">
+        <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+        <a th:href="@{/Empleados}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
+      </div>
+    </form>
+  </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-  function confirmDelete() {
-      Swal.fire({
-          title: '¿Está seguro?',
-          text: "¡No podrás revertir esto!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#6c757d',
-          confirmButtonText: 'Sí, eliminar',
-          cancelButtonText: 'Cancelar'
-      }).then((result) => {
-          if (result.isConfirmed) {
-              document.getElementById('deleteForm').submit();
-          }
-      });
-  }
-</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

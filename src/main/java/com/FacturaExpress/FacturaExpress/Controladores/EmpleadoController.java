@@ -97,8 +97,11 @@ public class EmpleadoController {
     }
 
     @PostMapping("/delete")
-    public String delete(@ModelAttribute Empleados empleado, RedirectAttributes attributes) {
-        empleadoServices.EliminarPorId(empleado.getId());
+    public String delete(@RequestParam("id") Integer id, RedirectAttributes attributes) {
+        if (id == null) {
+            throw new IllegalArgumentException("The given id must not be null");
+        }
+        empleadoServices.EliminarPorId(id);
         attributes.addFlashAttribute("msg", "Eliminado correctamente");
         return "redirect:/Empleados";
     }

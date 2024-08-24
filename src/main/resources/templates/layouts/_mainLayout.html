@@ -13,6 +13,37 @@
     <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
 
     <script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            border-radius: 5px; /* Adds rounded corners */
+        }
+
+        .nav-link:hover {
+            background-color: #343a40; /* Dark background on hover */
+            color: #ffffff; /* White text on hover */
+            transform: scale(1.1); /* Slightly enlarge the icon on hover */
+        }
+
+        .nav-icon {
+            font-size: 1.5rem; /* Icon size */
+            margin-right: 10px;
+        }
+
+        .nav-item {
+            margin: 5px 0; /* Space between menu items */
+        }
+
+        .nav-link p {
+            margin: 0; /* Remove default margin from p tag */
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -28,10 +59,6 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Navbar Search -->
-
-            <!-- Messages Dropdown Menu -->
-
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
@@ -54,13 +81,25 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add the Empleados link here -->
+                    <!-- Empleados Link -->
                     <li class="nav-item">
-                        <a href="/Empleados" class="nav-link">
+                        <a href="/Empleados" class="nav-link" title="Gestionar empleados">
                             <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Empleados
-                            </p>
+                            <p>Empleados</p>
+                        </a>
+                    </li>
+                    <!-- Clientes Link -->
+                    <li class="nav-item">
+                        <a href="/Cliente" class="nav-link" title="Gestionar clientes">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Clientes</p>
+                        </a>
+                    </li>
+                    <!-- Sectores Link -->
+                    <li class="nav-item">
+                        <a href="/Sectores" class="nav-link" title="Gestionar sectores">
+                            <i class="nav-icon fas fa-lightbulb"></i>
+                            <p>Sectores</p>
                         </a>
                     </li>
                 </ul>
