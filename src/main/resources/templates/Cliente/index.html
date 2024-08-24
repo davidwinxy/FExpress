@@ -1,0 +1,51 @@
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Cliente</title>
+</head>
+
+<div layout:fragment="content" class="container mt-4">
+
+    <h1 class="mb-4">Cliente</h1>
+
+    <a th:href="@{/Cliente/create}" class="btn btn-primary mb-3">Crear nuevo cliente</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${clientes}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.nombre}"></td>
+            <td th:text="${item.apellido}"></td>
+            <td th:text="${item.correo}"></td>
+
+            <td>
+                <a th:href="@{/Cliente/details/{id}(id=${item.id})}" class="btn btn-info btn-sm">Ver</a>
+                <a th:href="@{/Cliente/edit/{id}(id=${item.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/Cliente/remove/{id}(id=${item.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav class="Page navegation example">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNumber : ${pageNumber}">
+                <a class="page-link" th:href="@{|/Cliente?page=${pageNumber}|}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+
+    <a th:href="@{/}" class="btn btn-outline-primary">Volver al inicio</a>
+
+</div>
+
+</html>

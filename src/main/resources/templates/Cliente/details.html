@@ -1,0 +1,37 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout">
+
+<head>
+    <title>Detalle del cliente</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h1>Detalle del cliente</h1>
+        <hr>
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd th:text="${cliente.id}"></dd>
+
+            <dt>Nombre</dt>
+            <dd th:text="${cliente.nombre}"></dd>
+
+            <dt>Apellido</dt>
+            <dd th:text="${cliente.apellido}"></dd>
+
+            <dt>Email</dt>
+            <dd th:text="${cliente.correo}"></dd>
+
+        </dl>
+        <hr>
+        <div class="text-center">
+            <a th:href="@{/Cliente/edit/{id}(id=${cliente.id})}" class="btn btn-outline-info">Editar</a>
+            <a th:href="@{/Cliente/remove/{id}(id=${cliente.id})}" class="btn btn-outline-danger">Eliminar</a>
+            <a th:href="@{/Cliente}" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout">
+
+<head>
+    <title>Editar Cliente</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h1>Editar cliente</h1>
+        <form th:action="@{/Cliente/save}" th:object="${cliente}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Escriba el nombre del cliente" th:field="*{nombre}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" id="apellido" placeholder="Escriba el apellido del cliente" th:field="*{apellido}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="email" class="form-control" id="correo" placeholder="Escriba el correo del cliente" th:field="*{correo}" required>
+            </div>
+            <hr>
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-primary">Guardar cambios</button>
+                <a th:href="@{/Clientes}" class="btn btn-outline-secondary">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

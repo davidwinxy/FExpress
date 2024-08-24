@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 CREATE DATABASE FacturaExpressdb;
 
 USE FacturaExpressdb;
+=======
+CREATE DATABASE FacturaExpressdb
+
+USE FacturaExpressdb
+>>>>>>> 4b8c973a893e7e2bc2fc8c62416b9b1fa4bb1fc2
 
 CREATE TABLE `roles` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -32,7 +38,30 @@ INSERT INTO roles (nombre) VALUES
  ('admin'),
  ('empleado');
 
+<<<<<<< HEAD
 INSERT INTO usuario_rol (usuario_id, rol_id) VALUES
  (1, 1),
  (2, 2),
  (3, 2);
+=======
+ INSERT INTO usuarios (login, clave, STATUS) values
+ ('admin', '{noop}admin123',1),
+ ('docente', '{noop}docente123',1),
+ ('user3', '{noop}password3',0);
+
+ INSERT INTO roles (nombre) VALUES ('admin'), ('docente');
+
+
+ INSERT INTO usuario_rol (usuario_id, rol_id) VALUES
+ (1,1),
+ (2,2),
+ (3,2);
+
+ CREATE TABLE `clientes` (
+ 	`id` INT NOT NULL AUTO_INCREMENT,
+ 	`nombre` VARCHAR(50) NULL DEFAULT NULL,
+ 	`apellido` VARCHAR(50) NULL DEFAULT NULL,
+ 	`correo` VARCHAR(50) NULL DEFAULT NULL,
+ 	PRIMARY KEY (`id`)
+ );
+>>>>>>> 4b8c973a893e7e2bc2fc8c62416b9b1fa4bb1fc2
