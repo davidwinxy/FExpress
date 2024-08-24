@@ -23,6 +23,9 @@ public class Sector {
     @ManyToMany (mappedBy = "sectores")
     private Set<Empleados> sectores = new HashSet<>();
 
+    @ManyToMany (mappedBy = "sectores")
+    private Set<Cliente> clientes = new HashSet<>();
+
     public Integer getId() {
         return id;
     }

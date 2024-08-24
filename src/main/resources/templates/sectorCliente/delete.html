@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Eliminar Sector Cliente</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .card {
+            margin-top: 20px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+        }
+        .card-body {
+            font-size: 1rem;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <h1 class="mb-4">Eliminar Sector Cliente <i class="fas fa-map-marker-alt"></i></h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">¿Está seguro que desea eliminar el Sector Cliente?</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> <span th:text="${sectorCliente.id}"></span></p>
+            <p><strong>Cliente:</strong> <span th:text="${sectorCliente.clientes.nombre} + ' ' + ${sectorCliente.clientes.apellido}"></span></p>
+            <p><strong>Sector:</strong> <span th:text="${sectorCliente.sector.nombre}"></span></p>
+        </div>
+        <div class="card-footer">
+            <form th:action="@{/SectorClientes/delete}" method="post">
+                <input type="hidden" name="id" th:value="${sectorCliente.id}">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Confirmar eliminación
+                </button>
+                <a th:href="@{/SectorClientes}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</body>
+</html>
