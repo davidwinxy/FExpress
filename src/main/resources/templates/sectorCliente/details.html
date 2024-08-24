@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Detalles del Sector Cliente</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+<div layout:fragment="content">
+    <div class="container mt-4">
+        <h1>Detalles del Sector Cliente</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cliente</h5>
+                <p class="card-text" th:text="${sectorCliente.clientes.nombre + ' ' + sectorCliente.clientes.apellido}"></p>
+
+                <h5 class="card-title">Sector</h5>
+                <p class="card-text" th:text="${sectorCliente.sector.nombre}"></p>
+
+                <div class="text-center mt-4">
+                    <a th:href="@{/SectorClientes}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Regresar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

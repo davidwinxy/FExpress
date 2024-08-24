@@ -4,6 +4,9 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "sectores")
 public class Sector {
@@ -16,6 +19,12 @@ public class Sector {
 
     @Nullable
     private String descripcion;
+
+    @ManyToMany (mappedBy = "sectores")
+    private Set<Empleados> sectores = new HashSet<>();
+
+    @ManyToMany (mappedBy = "sectores")
+    private Set<Cliente> clientes = new HashSet<>();
 
     public Integer getId() {
         return id;

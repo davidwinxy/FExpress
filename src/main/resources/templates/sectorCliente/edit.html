@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Editar Sector Cliente</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <div class="container mt-4">
+        <h1>Editar Sector Cliente</h1>
+        <form th:action="@{/SectorClientes/save}" th:object="${sectorCliente}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label for="clientes">Cliente</label>
+                <select class="form-control" th:field="*{clientes.id}" id="clientes" required>
+                    <option value="" disabled>Seleccione un cliente</option>
+                    <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre + ' ' + cliente.apellido}"
+                            th:selected="${cliente.id == sectorCliente.clientes.id}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sector">Sector</label>
+                <select class="form-control" th:field="*{sector.id}" id="sector" required>
+                    <option value="" disabled>Seleccione un sector</option>
+                    <option th:each="sector : ${sectores}" th:value="${sector.id}" th:text="${sector.nombre}"
+                            th:selected="${sector.id == sectorCliente.sector.id}"></option>
+                </select>
+            </div>
+            <hr>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <a th:href="@{/SectorClientes}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
