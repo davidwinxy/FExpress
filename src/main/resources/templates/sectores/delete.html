@@ -1,0 +1,53 @@
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+    <title>Eliminar Sector</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .card {
+            margin-top: 20px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+        }
+        .card-body {
+            font-size: 1rem;
+        }
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <h1 class="mb-4">Eliminar Sector <i class="fas fa-map-marker-alt"></i></h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">¿Está seguro que desea eliminar el sector: <span th:text="${sector.nombre}"></span>?</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> <span th:text="${sector.id}"></span></p>
+            <p><strong>Nombre:</strong> <span th:text="${sector.nombre}"></span></p>
+            <p><strong>Descripción:</strong> <span th:text="${sector.descripcion} ?: 'No disponible'"></span></p>
+        </div>
+        <div class="card-footer">
+            <form th:action="@{/Sectores/delete}" method="post">
+                <input type="hidden" name="Id" th:value="${sector.id}">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Confirmar eliminación
+                </button>
+                <a th:href="@{/Sectores}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
