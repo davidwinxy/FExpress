@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout">
+
+<head>
+    <title>Detalle del empleado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        .dl-horizontal dt {
+            font-weight: bold;
+            width: 25%;
+            float: left;
+            clear: left;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .dl-horizontal dd {
+            margin-left: 30%;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .btn-outline-info {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .btn-outline-danger {
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #ffffff;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #dee2e6;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h1>Detalle del empleado</h1>
+        <hr>
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd th:text="${empleado.id}"></dd>
+
+            <dt>Nombre</dt>
+            <dd th:text="${empleado.nombre}"></dd>
+
+            <dt>Apellido</dt>
+            <dd th:text="${empleado.apellido}"></dd>
+
+            <dt>Email</dt>
+            <dd th:text="${empleado.email}"></dd>
+
+            <dt>Teléfono</dt>
+            <dd th:text="${empleado.telefono}"></dd>
+
+            <dt>Dirección</dt>
+            <dd th:text="${empleado.direccion}"></dd>
+
+            <dt>Género</dt>
+            <dd th:text="${empleado.genero}"></dd>
+        </dl>
+        <hr>
+        <div class="text-center">
+            <a th:href="@{/Empleados/edit/{id}(id=${empleado.id})}" class="btn btn-outline-info">Editar</a>
+            <a th:href="@{/Empleados/remove/{id}(id=${empleado.id})}" class="btn btn-outline-danger">Eliminar</a>
+            <a th:href="@{/Empleados}" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

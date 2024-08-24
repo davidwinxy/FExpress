@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="utf-8">
@@ -25,13 +24,11 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
-
 
             <!-- Messages Dropdown Menu -->
 
@@ -40,7 +37,6 @@
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
-
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -55,17 +51,18 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-
-
-            <!-- SidebarSearch Form -->
-
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
+                    <!-- Add the Empleados link here -->
+                    <li class="nav-item">
+                        <a href="/Empleados" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Empleados
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -78,7 +75,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div layout:fragment="content">
-
+                    <!-- Content will be injected here -->
                 </div>
             </div>
         </div>
