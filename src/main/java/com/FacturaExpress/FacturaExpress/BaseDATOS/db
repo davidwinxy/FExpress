@@ -1,4 +1,32 @@
-USE asistenciadb
+CREATE DATABASE FacturaExpressdb
+
+USE FacturaExpressdb
+
+
+
+CREATE TABLE `roles` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `nombre` VARCHAR(50) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`)
+);
+
+
+CREATE TABLE `usuarios` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `login` VARCHAR(50) NULL DEFAULT NULL,
+    `clave` VARCHAR(50) NULL DEFAULT NULL,
+    `status` INT NULL DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);
+
+
+CREATE TABLE `usuario_rol` (
+    `rol_id` INT NULL,
+    `usuario_id` INT NULL
+);
+
+
+
  INSERT INTO usuarios (login, clave, STATUS) values
  ('admin', '{noop}admin123',1),
  ('docente', '{noop}docente123',1),
