@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Sector Empleado</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <div class="container mt-4">
+        <h1>Crear nuevo Sector Empleado</h1>
+        <form th:action="@{/SectorEmpleados/save}" th:object="${sectorEmpleado}" method="post">
+            <div class="form-group">
+                <label for="empleado">Empleado</label>
+                <select class="form-control" th:field="*{empleados.id}" id="empleado" required>
+                    <option value="" disabled selected>Seleccione un empleado</option>
+                    <option th:each="empleado : ${empleados}" th:value="${empleado.id}" th:text="${empleado.nombre + ' ' + empleado.apellido}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sector">Sector</label>
+                <select class="form-control" th:field="*{sector.id}" id="sector" required>
+                    <option value="" disabled selected>Seleccione un sector</option>
+                    <option th:each="sector : ${sectores}" th:value="${sector.id}" th:text="${sector.nombre}"></option>
+                </select>
+            </div>
+            <hr>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <a th:href="@{/SectorEmpleados}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

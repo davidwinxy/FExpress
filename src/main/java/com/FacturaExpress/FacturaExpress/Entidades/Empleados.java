@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "empleados")
 public class Empleados {
@@ -31,7 +34,22 @@ public class Empleados {
     @NotBlank(message = "Ingrese el género del empleado")
     private String genero;
 
+    @ManyToMany
+    @JoinTable(
+            name = "sector_empleados",
+            joinColumns = @JoinColumn(name = "empleado_id"),
+            inverseJoinColumns = @JoinColumn(name = "sector_id")
+    )
+    private Set<Sector> sectores = new HashSet<>();
     // Getters and Setters
+
+    public Set<Sector> getSectores() {
+        return sectores;
+    }
+
+    public void setSectores(Set<Sector> sectores) {
+        this.sectores = sectores;
+    }
 
     public Integer getId() {
         return id;
