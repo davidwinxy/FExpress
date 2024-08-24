@@ -2,8 +2,6 @@ CREATE DATABASE FacturaExpressdb
 
 USE FacturaExpressdb
 
-
-
 CREATE TABLE `roles` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(50) NOT NULL DEFAULT '0',
