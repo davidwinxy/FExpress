@@ -32,6 +32,18 @@
             <dt>Correo</dt>
             <dd th:text="${cliente.correo}"></dd>
 
+            <dt>Dui</dt>
+            <dd th:text="${cliente.dui}"></dd>
+
+            <dt>Numero de casa</dt>
+            <dd th:text="${cliente.numerodecasa}"></dd>
+
+            <dt>Direccion de casa</dt>
+            <dd th:text="${cliente.direcciondecasa}"></dd>
+
+            <dt>Telefono</dt>
+            <dd th:text="${cliente.telefono}"></dd>
+
         </dl>
         <hr />
         <form th:action="@{/Cliente/delete}" method="post" onsubmit="return confirmDelete();">

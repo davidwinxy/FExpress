@@ -18,6 +18,10 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>
+            <th>Dui</th>
+            <th>Numero de casa</th>
+            <th>Direccion de casa</th>
+            <th>Telefono</th>
 
         </tr>
         </thead>
@@ -27,6 +31,10 @@
             <td th:text="${item.nombre}"></td>
             <td th:text="${item.apellido}"></td>
             <td th:text="${item.correo}"></td>
+            <td th:text="${item.dui}"></td>
+            <td th:text="${item.numerodecasa}"></td>
+            <td th:text="${item.direcciondecasa}"></td>
+            <td th:text="${item.telefono}"></td>
 
             <td>
                 <a th:href="@{/Cliente/details/{id}(id=${item.id})}" class="btn btn-info btn-sm">Ver</a>
