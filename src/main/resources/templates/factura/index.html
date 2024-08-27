@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Facturas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <div th:if="${msg != null}">
+        <script>
+            Swal.fire({
+                title: "Confirmación",
+                text: '[[ ${msg} ]]',
+                icon: "success"
+            })
+        </script>
+    </div>
+
+    <div th:if="${error != null}">
+        <script>
+            Swal.fire({
+                title: "Error",
+                text: '[[ ${error} ]]',
+                icon: "error"
+            })
+        </script>
+    </div>
+
+    <h1 class="mb-4">Facturas <i class="fas fa-file-invoice-dollar"></i></h1>
+
+    <a th:href="@{/Facturas/create}" class="btn btn-primary mb-3">
+        <i class="fas fa-plus-circle"></i> Crear nueva factura
+    </a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Dirección</th>
+                <th>Total a pagar</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${facturas}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.cliente.nombre} + '' + ${item.cliente.apellido}"></td>
+                <td th:text="${item.cliente.direccion}"></td>
+                <td th:text="${item.totalPagar}"></td>
+                <td class="action-buttons">
+                    <a th:href="@{/Facturas/details/{id}(id=${item.id})}" class="btn btn-info btn-sm icon-button" title="Ver detalles">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a th:href="@{/Facturas/edit/{id}(id=${item.id})}" class="btn btn-warning btn-sm icon-button" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a th:href="@{/Facturas/remove/{id}(id=${item.id})}" class="btn btn-danger btn-sm icon-button" title="Eliminar">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{|/Facturas?page=${pageNumber}|}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+
+    <a th:href="@{/}" class="btn btn-outline-primary">
+        <i class="fas fa-home"></i> Volver al inicio
+    </a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles de Factura</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+        .detail-section {
+            margin-bottom: 1.5rem;
+        }
+        .detail-section h4 {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <h1 class="mb-4">Detalles de Factura <i class="fas fa-file-invoice-dollar"></i></h1>
+
+    <div class="detail-section">
+        <h4>ID de Factura:</h4>
+        <p th:text="${factura.id}"></p>
+    </div>
+
+    <div class="detail-section">
+        <h4>Cliente:</h4>
+        <p th:text="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"></p>
+    </div>
+    <div class="detail-section">
+        <h4>Consumo (kWh):</h4>
+        <p th:text="${factura.consumoKwh}"></p>
+    </div>
+
+    <div class="detail-section">
+        <h4>Número de Medidor:</h4>
+        <p th:text="${factura.numeroMedidor}"></p>
+    </div>
+
+    <div class="detail-section">
+        <h4>Total a Pagar:</h4>
+        <p th:text="${factura.totalPagar}"></p>
+    </div>
+
+    <a th:href="@{/Facturas}" class="btn btn-outline-primary">
+        <i class="fas fa-arrow-left"></i> Volver a la lista
+    </a>
+
+    <a th:href="@{/Facturas/edit/{id}(id=${factura.id})}" class="btn btn-warning ml-2">
+        <i class="fas fa-edit"></i> Editar
+    </a>
+
+    <a th:href="@{/Facturas/remove/{id}(id=${factura.id})}" class="btn btn-danger ml-2">
+        <i class="fas fa-trash-alt"></i> Eliminar
+    </a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</body>
+</html>

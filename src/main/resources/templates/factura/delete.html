@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Eliminar Factura</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem; /* Space between buttons */
+        }
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <h1 class="mb-4">Eliminar Factura <i class="fas fa-file-invoice-dollar"></i></h1>
+
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Confirmación de Eliminación</h4>
+        <p>¿Está seguro de que desea eliminar la factura con el ID <strong th:text="${factura.id}"></strong>? Esta acción no se puede deshacer.</p>
+        <hr>
+        <p class="mb-0">Cliente: <strong th:text="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"></strong></p>
+        <p class="mb-0">Dirección: <strong th:text="${factura.cliente.direccion}"></strong></p>
+        <p class="mb-0">Total a Pagar: <strong th:text="${factura.totalPagar}"></strong></p>
+    </div>
+    <form th:action="@{/Facturas/delete/{id}(id=${factura.id})}" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <div class="action-buttons">
+            <button type="submit" class="btn btn-danger btn-sm icon-button" onclick="return confirmDeletion(event)">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+            <a th:href="@{/Facturas}" class="btn btn-secondary btn-sm icon-button">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+        </div>
+    </form>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</body>
+</html>
