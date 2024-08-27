@@ -1,15 +1,16 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layouts/_mainLayout">
+      layout:decorate="/layouts/_mainLayout">
 
 <head>
-    <title>Detalle del cliente</title>
+    <title>Detalle del Cliente</title>
 </head>
 
 <body>
 <div layout:fragment="content">
     <div class="container">
-        <h1>Detalle del cliente</h1>
+        <h1>Detalle del Cliente</h1>
         <hr>
         <dl class="dl-horizontal">
             <dt>ID</dt>
@@ -21,23 +22,21 @@
             <dt>Apellido</dt>
             <dd th:text="${cliente.apellido}"></dd>
 
-            <dt>Email</dt>
+            <dt>Correo</dt>
             <dd th:text="${cliente.correo}"></dd>
 
-            <dt>Dui</dt>
+            <dt>DUI</dt>
             <dd th:text="${cliente.dui}"></dd>
 
-            <dt>Numero de casa</dt>
-            <dd th:text="${cliente.numerodecasa}"></dd>
+            <dt>Dirección</dt>
+            <dd th:text="${cliente.direccion}"></dd>
 
-            <dt>Direccion de casa</dt>
-            <dd th:text="${cliente.direcciondecasa}"></dd>
-
-            <dt>Telefono</dt>
+            <dt>Teléfono</dt>
             <dd th:text="${cliente.telefono}"></dd>
 
             <dt>Sector</dt>
-            <dd th:text="${cliente.sector}"></dd>
+            <dd th:text="${cliente.sector.nombre}"></dd> <!-- Suponiendo que 'sector' es un objeto con 'nombre' -->
+
 
         </dl>
         <hr>

@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layouts/_mainLayout">
+      layout:decorate="/layouts/_mainLayout">
 
 <head>
     <title>Crear nuevo Cliente</title>
@@ -11,46 +12,37 @@
     <div class="container">
         <h1>Crear nuevo cliente</h1>
         <form th:action="@{/Cliente/save}" th:object="${cliente}" method="post">
+            <!-- Campos de formulario -->
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Escriba el nombre del cliente" required />
+                <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre" placeholder="Escriba el nombre del cliente" required />
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido</label>
-                <input type="text" class="form-control" th:field="*{apellido}" id="apellido" placeholder="Escriba el apellido del cliente" required />
+                <input type="text" class="form-control" th:field="*{apellido}" id="apellido" name="apellido" placeholder="Escriba el apellido del cliente" required />
             </div>
             <div class="form-group">
                 <label for="correo">Correo</label>
-                <input type="email" class="form-control" th:field="*{correo}" id="correo" placeholder="Escriba el correo del cliente" required />
+                <input type="email" class="form-control" th:field="*{correo}" id="correo" name="correo" placeholder="Escriba el correo del cliente" required />
             </div>
-
             <div class="form-group">
-                <label for="dui">Dui</label>
-                <input  class="form-control" th:field="*{dui}" id="dui" placeholder="Escriba el dui del cliente" required />
+                <label for="dui">DUI</label>
+                <input type="text" class="form-control" th:field="*{dui}" id="dui" name="dui" placeholder="Escriba el DUI del cliente" required />
             </div>
-
             <div class="form-group">
-                <label for="numerodecasa">Numero de casa</label>
-                <input class="form-control" th:field="*{numerodecasa}" id="numerodecasa" placeholder="Escriba el numero de casa del cliente" required />
+                <label for="direccion">Dirección</label>
+                <input type="text" class="form-control" th:field="*{direccion}" id="direccion" name="direccion" placeholder="Escriba la dirección de casa del cliente" required />
             </div>
-
             <div class="form-group">
-                <label for="direcciondecasa">Direccion de casa</label>
-                <input  class="form-control" th:field="*{direcciondecasa}" id="direcciondecasa" placeholder="Escriba la direccion de casa del cliente" required />
-            </div>
-
-            <div class="form-group">
-                <label for="telefono">Telefono</label>
-                <input  class="form-control" th:field="*{telefono}" id="telefono" placeholder="Escriba el telefono del cliente" required />
+                <label for="telefono">Teléfono</label>
+                <input type="text" class="form-control" th:field="*{telefono}" id="telefono" name="telefono" placeholder="Escriba el teléfono del cliente" required />
             </div>
             <div class="form-group">
                 <label for="sector">Sector</label>
-                <select class="form-control" th:field="*{sector}" id="sector" required>
-                    <option value="" disabled selected>Seleccione un sector</option>
-                    <option th:each="sector : ${sectores}" th:value="${sector}" th:text="${sector.nombre}"></option>
+                <select class="form-control" th:field="*{sector}" id="sector" name="sector" required>
+                    <option th:each="sector : ${sectores}" th:value="${sector.id}" th:text="${sector.nombre}"></option>
                 </select>
             </div>
-
             <hr>
             <div class="text-center">
                 <button type="submit" class="btn btn-outline-primary">Guardar</button>

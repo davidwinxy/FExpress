@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "clientes")
 public class Cliente {
@@ -25,37 +22,20 @@ public class Cliente {
     @Email(message = "Ingrese un correo válido")
     private String correo;
 
-    @ManyToMany
-    @JoinTable(
-            name = "sector_clientes",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "sector_id")
-    )
-    private Set<Sector> sectores = new HashSet<>();
-
-    @NotBlank(message = "Ingrese su dui")
+    @NotBlank(message = "Ingrese su DUI")
     private String dui;
 
-    @NotBlank(message = "Ingrese el numero de casa")
-    private String numerodecasa;
+    @NotBlank(message = "Ingrese la dirección")
+    private String direccion;
 
-    @NotBlank(message = "Ingrese direccion de casa")
-    private String direcciondecasa;
-
-    @NotBlank(message = "Ingrese numero de telefono")
+    @NotBlank(message = "Ingrese el número de teléfono")
     private String telefono;
 
-    @NotBlank(message = "Ingrese numero de telefono")
-    private String sector;
+    @ManyToOne
+    @JoinColumn(name = "sector_id", nullable = false)
+    private Sector sector;
 
-    public @NotBlank(message = "Ingrese numero de telefono") String getSector() {
-        return sector;
-    }
-
-    public void setSector(@NotBlank(message = "Ingrese numero de telefono") String sector) {
-        this.sector = sector;
-    }
-    // Getters y setters...
+    // Getters y setters
 
 
     public Integer getId() {
@@ -90,43 +70,35 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public Set<Sector> getSectores() {
-        return sectores;
-    }
-
-    public void setSectores(Set<Sector> sectores) {
-        this.sectores = sectores;
-    }
-
-    public @NotBlank(message = "Ingrese su dui") String getDui() {
+    public @NotBlank(message = "Ingrese su DUI") String getDui() {
         return dui;
     }
 
-    public void setDui(@NotBlank(message = "Ingrese su dui") String dui) {
+    public void setDui(@NotBlank(message = "Ingrese su DUI") String dui) {
         this.dui = dui;
     }
 
-    public @NotBlank(message = "Ingrese el numero de casa") String getNumerodecasa() {
-        return numerodecasa;
+    public @NotBlank(message = "Ingrese la dirección") String getDireccion() {
+        return direccion;
     }
 
-    public void setNumerodecasa(@NotBlank(message = "Ingrese el numero de casa") String numerodecasa) {
-        this.numerodecasa = numerodecasa;
+    public void setDireccion(@NotBlank(message = "Ingrese la dirección") String direccion) {
+        this.direccion = direccion;
     }
 
-    public @NotBlank(message = "Ingrese direccion de casa") String getDirecciondecasa() {
-        return direcciondecasa;
-    }
-
-    public void setDirecciondecasa(@NotBlank(message = "Ingrese direccion de casa") String direcciondecasa) {
-        this.direcciondecasa = direcciondecasa;
-    }
-
-    public @NotBlank(message = "Ingrese numero de telefono") String getTelefono() {
+    public @NotBlank(message = "Ingrese el número de teléfono") String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(@NotBlank(message = "Ingrese numero de telefono") String telefono) {
+    public void setTelefono(@NotBlank(message = "Ingrese el número de teléfono") String telefono) {
         this.telefono = telefono;
+    }
+
+    public Sector getSector() {
+        return sector;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
     }
 }

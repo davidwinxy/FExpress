@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,7 +27,7 @@ public class ClienteController {
     private IClienteServices clienteServices;
 
     @Autowired
-    private ISectorServices sectorServices; // Inyección del servicio de sectores
+    private ISectorServices sectorServices;
 
     @GetMapping
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
@@ -52,23 +51,23 @@ public class ClienteController {
     public String create(Model model) {
         model.addAttribute("cliente", new Cliente());
         model.addAttribute("sectores", sectorServices.ObtenerTodos()); // Agregar todos los sectores disponibles
-        return "cliente/create";
+        return "Cliente/create";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes, @RequestParam(value = "sectores", required = false) List<Integer> sectoresIds) {
+    public String save(@ModelAttribute Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             model.addAttribute("cliente", cliente);
             model.addAttribute("sectores", sectorServices.ObtenerTodos());
             attributes.addFlashAttribute("error", "No se puede guardar debido a un error");
-            return "cliente/create";
+            return "Cliente/create";
         }
 
-        if (sectoresIds != null) {
-            Set<Sector> sectores = sectoresIds.stream()
-                    .map(id -> sectorServices.BuscarporId(id).orElseThrow(() -> new IllegalArgumentException("Sector no encontrado: " + id)))
-                    .collect(Collectors.toSet());
-            cliente.setSectores(sectores);
+        // Aquí se asigna el sector_id
+        if (cliente.getSector() != null && cliente.getSector().getId() != null) {
+            Sector sector = sectorServices.BuscarporId(cliente.getSector().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Sector no encontrado: " + cliente.getSector().getId()));
+            cliente.setSector(sector);
         }
 
         boolean isEdit = (cliente.getId() != null && clienteServices.BuscarporId(cliente.getId()).isPresent());
@@ -82,15 +81,14 @@ public class ClienteController {
 
         return "redirect:/Cliente";
     }
-
     @GetMapping("/details/{id}")
     public String details(@PathVariable("id") Integer id, Model model) {
-        Optional<Cliente> clientOpt = clienteServices.BuscarporId(id);
-        if (clientOpt.isPresent()) {
-            model.addAttribute("cliente", clientOpt.get());
-            return "cliente/details";
+        Optional<Cliente> clienteOpt = clienteServices.BuscarporId(id);
+        if (clienteOpt.isPresent()) {
+            model.addAttribute("cliente", clienteOpt.get());
+            return "Cliente/details";
         } else {
-            return "cliente/not_found";
+            return "Cliente/not_found";
         }
     }
 
@@ -101,7 +99,7 @@ public class ClienteController {
 
         model.addAttribute("cliente", cliente);
         model.addAttribute("sectores", sectorServices.ObtenerTodos()); // Agregar todos los sectores disponibles
-        return "cliente/edit";
+        return "Cliente/edit";
     }
 
     @GetMapping("/remove/{id}")
@@ -109,7 +107,7 @@ public class ClienteController {
         Cliente cliente = clienteServices.BuscarporId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado: " + id));
         model.addAttribute("cliente", cliente);
-        return "cliente/delete";
+        return "Cliente/delete";
     }
 
     @PostMapping("/delete")

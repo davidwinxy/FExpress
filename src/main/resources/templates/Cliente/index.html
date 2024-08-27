@@ -1,13 +1,17 @@
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
 
 <head>
-    <title>Cliente</title>
+    <title>Clientes</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
+<body>
 <div layout:fragment="content" class="container mt-4">
 
-    <h1 class="mb-4">Cliente</h1>
+    <h1 class="mb-4">Clientes</h1>
 
     <a th:href="@{/Cliente/create}" class="btn btn-primary mb-3">Crear nuevo cliente</a>
 
@@ -18,11 +22,11 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>
-            <th>Dui</th>
-            <th>Numero de casa</th>
-            <th>Direccion de casa</th>
-            <th>Telefono</th>
-
+            <th>DUI</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Sector</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -32,9 +36,9 @@
             <td th:text="${item.apellido}"></td>
             <td th:text="${item.correo}"></td>
             <td th:text="${item.dui}"></td>
-            <td th:text="${item.numerodecasa}"></td>
-            <td th:text="${item.direcciondecasa}"></td>
+            <td th:text="${item.direccion}"></td> <!-- Corregido para que coincida con la entidad -->
             <td th:text="${item.telefono}"></td>
+            <td th:text="${item.sector.nombre}"></td> <!-- Asumiendo que 'nombre' es el campo en la entidad Sector -->
 
             <td>
                 <a th:href="@{/Cliente/details/{id}(id=${item.id})}" class="btn btn-info btn-sm">Ver</a>
@@ -44,10 +48,11 @@
         </tr>
         </tbody>
     </table>
-    <nav class="Page navegation example">
+
+    <nav aria-label="Page navigation">
         <ul class="pagination">
-            <li class="page-item" th:each="pageNumber : ${pageNumber}">
-                <a class="page-link" th:href="@{|/Cliente?page=${pageNumber}|}" th:text="${pageNumber}"></a>
+            <li class="page-item" th:each="page : ${pageNumbers}">
+                <a class="page-link" th:href="@{|/Cliente?page=${page}|}" th:text="${page}"></a>
             </li>
         </ul>
     </nav>
@@ -56,4 +61,8 @@
 
 </div>
 
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

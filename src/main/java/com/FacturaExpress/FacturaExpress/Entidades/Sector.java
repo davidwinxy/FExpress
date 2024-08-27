@@ -3,7 +3,6 @@ package com.FacturaExpress.FacturaExpress.Entidades;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,11 +19,13 @@ public class Sector {
     @Nullable
     private String descripcion;
 
-    @ManyToMany (mappedBy = "sectores")
-    private Set<Empleados> sectores = new HashSet<>();
-
-    @ManyToMany (mappedBy = "sectores")
+    @OneToMany(mappedBy = "sector", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cliente> clientes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "sectores")
+    private Set<Empleados> empleados = new HashSet<>();
+
+    // Getters y setters
 
     public Integer getId() {
         return id;
@@ -34,20 +35,35 @@ public class Sector {
         this.id = id;
     }
 
-    public @NotBlank(message = "Ingrese el nombre del sector") String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(@NotBlank(message = "Ingrese el nombre del sector") String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    @Nullable
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(@Nullable String descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Set<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(Set<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public Set<Empleados> getEmpleados() {
+        return empleados;
+    }
+
+    public void setEmpleados(Set<Empleados> empleados) {
+        this.empleados = empleados;
     }
 }
