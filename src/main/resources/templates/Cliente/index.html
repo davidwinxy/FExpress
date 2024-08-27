@@ -6,6 +6,46 @@
     <title>Clientes</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .icon-button:hover {
+            background-color: #007bff;
+            transform: scale(1.05);
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem; /* Space between buttons */
+        }
+        #spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -13,7 +53,10 @@
 
     <h1 class="mb-4">Clientes</h1>
 
-    <a th:href="@{/Cliente/create}" class="btn btn-primary mb-3">Crear nuevo cliente</a>
+    <a th:href="@{/Cliente/create}" class="btn btn-primary mb-3">
+        <i class="fas fa-user-plus"></i> Crear nuevo cliente
+
+    </a>
 
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">

@@ -83,6 +83,10 @@
                 <label for="sector">Sector</label>
                 <select class="form-control" id="sector" th:field="*{sector}" required>
                     <option value="" disabled selected>Seleccione un sector</option>
+                    <option th:each="sector : ${sectores}"
+                            th:value="${sector.id}"
+                            th:text="${sector.nombre}"></option>
+
                     <!-- Aquí se deben agregar las opciones dinámicamente -->
                 </select>
             </div>
