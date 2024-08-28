@@ -14,4 +14,6 @@ public interface IClienteServices {
     Optional<Cliente> BuscarporId(Integer id);
     Cliente CreaOeditar(Cliente cliente);
     void EliminarPorId(Integer id);
+
+    public boolean tieneFacturasAsignadas(Integer facturaId);
 }

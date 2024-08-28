@@ -1,6 +1,7 @@
 package com.FacturaExpress.FacturaExpress.Controladores;
 
 import com.FacturaExpress.FacturaExpress.Entidades.Cliente;
+import com.FacturaExpress.FacturaExpress.Entidades.Factura;
 import com.FacturaExpress.FacturaExpress.Entidades.Sector;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IClienteServices;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.ISectorServices;
@@ -112,8 +113,13 @@ public class ClienteController {
 
     @PostMapping("/delete")
     public String delete(@ModelAttribute Cliente cliente, RedirectAttributes attributes) {
-        clienteServices.EliminarPorId(cliente.getId());
-        attributes.addFlashAttribute("msg", "Eliminado correctamente");
+        if (clienteServices.tieneFacturasAsignadas(cliente.getId())) {
+            attributes.addFlashAttribute("error", "No se puede eliminar el cliente porque tiene facturas asociadas.");
+        } else {
+            clienteServices.EliminarPorId(cliente.getId());
+            attributes.addFlashAttribute("msg", "Eliminado correctamente");
+        }
         return "redirect:/Cliente";
     }
+
 }

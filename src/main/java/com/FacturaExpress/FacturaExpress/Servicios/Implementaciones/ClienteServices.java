@@ -1,6 +1,7 @@
 package com.FacturaExpress.FacturaExpress.Servicios.Implementaciones;
 
 import com.FacturaExpress.FacturaExpress.Entidades.Cliente;
+import com.FacturaExpress.FacturaExpress.Entidades.Sector;
 import com.FacturaExpress.FacturaExpress.Repositorios.IClienteRepository;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IClienteServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,11 @@ public class ClienteServices implements IClienteServices {
     @Override
     public void EliminarPorId(Integer id) {
         clienteRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean tieneFacturasAsignadas(Integer clienteId) {
+        Cliente cliente = clienteRepository.findById(clienteId).orElse(null);
+        return cliente != null && cliente.getFacturas() != null && !cliente.getFacturas().isEmpty();
     }
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 @Entity
 @Table(name = "clientes")
 public class Cliente {
@@ -34,6 +36,9 @@ public class Cliente {
     @ManyToOne
     @JoinColumn(name = "sector_id", nullable = false)
     private Sector sector;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Factura> facturas;
 
     // Getters y setters
 
@@ -100,5 +105,13 @@ public class Cliente {
 
     public void setSector(Sector sector) {
         this.sector = sector;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
     }
 }
