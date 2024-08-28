@@ -27,4 +27,46 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
     private List<Rol> roles;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public @NotBlank(message = "el nombre de usuario es requerido") String getLogin() {
+        return login;
+    }
+
+    public void setLogin(@NotBlank(message = "el nombre de usuario es requerido") String login) {
+        this.login = login;
+    }
+
+    public @NotBlank(message = "la clave de usuario es requerido") String getClave() {
+        return clave;
+    }
+
+    public void setClave(@NotBlank(message = "la clave de usuario es requerido") String clave) {
+        this.clave = clave;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
+    }
 }
+

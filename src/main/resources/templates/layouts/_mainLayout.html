@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,6 +56,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
+
         </ul>
 
         <!-- Right navbar links -->
@@ -71,7 +73,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="index.html" class="brand-link">
             <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">FacturaExpress</span>
         </a>
@@ -102,8 +104,22 @@
                             <p>Sectores</p>
                         </a>
                     </li>
+                    <li class="nav-item"  sec:authorize="hasAuthority('admin')">
+                        <a href="/usuarios" class="nav-link" title="Gestionar usuarios">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link" title="cerrar sesion">
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
+                            <p>cerrar sesion</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
+
+
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+</head>
+
+<div layout:fragment="content" class="container mt-5">
+
+
+    <div class="mb-3">
+        <a href="/usuarios/create" class="btn btn-primary"
+          >
+            Crear Nuevo Usuario
+        </a>
+    </div>
+
+
+    <h1 class="mb-4">Lista de Usuarios</h1>
+
+    <!-- Tabla de usuarios -->
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nombre de Usuario</th>
+            <th>Roles</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.login}">Nombre de Usuario</td>
+            <td>
+                <ul>
+                    <li th:each="rol : ${usuario.roles}" th:text="${rol.nombre}">Rol</li>
+                </ul>
+            </td>
+            <td th:text="${usuario.status}">Estado</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+
+</html>
