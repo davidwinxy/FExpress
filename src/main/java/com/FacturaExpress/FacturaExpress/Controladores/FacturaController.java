@@ -4,6 +4,8 @@ import com.FacturaExpress.FacturaExpress.Entidades.Cliente;
 import com.FacturaExpress.FacturaExpress.Entidades.Factura;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IClienteServices;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IFacturaServices;
+import com.FacturaExpress.FacturaExpress.utilidades.FacturaExportPDF;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,6 +61,26 @@ public class FacturaController {
         model.addAttribute("clientes", clientes);
         return "factura/create";
     }
+
+//    @PostMapping("/save")
+//    public String save(@ModelAttribute Factura factura, BindingResult result, Model model, RedirectAttributes attributes) {
+//        if (result.hasErrors()) {
+//            model.addAttribute("factura", factura);
+//            return "factura/create";
+//        }
+//
+//        iFacturaServices.CrearOEditar(factura);
+//
+//        boolean isEdit = (factura.getId() != null && iFacturaServices.BuscarporId(factura.getId()).isPresent());
+//        if (isEdit) {
+//            attributes.addFlashAttribute("msg", "Editado correctamente");
+//        } else {
+//            attributes.addFlashAttribute("msg", "Creado correctamente");
+//        }
+//
+//        return "redirect:/Facturas";
+//    }
+
     @PostMapping("/save")
     public String save(@ModelAttribute Factura factura, BindingResult result, Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
@@ -79,6 +105,7 @@ public class FacturaController {
         Optional<Factura> factura = iFacturaServices.BuscarporId(id);
         if (factura.isPresent()) {
             model.addAttribute("factura", factura.get());
+//            model.addAttribute("fechaEmisionFormatted", factura.getFechaEmision().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             return "factura/details";
         } else {
             model.addAttribute("error", "Factura no encontrada");
@@ -115,4 +142,29 @@ public class FacturaController {
         attributes.addFlashAttribute("msg", "Eliminado correctamente");
         return "redirect:/Facturas";
     }
+
+    @GetMapping("/exportarPDF/{id}")
+    public void exportarFacturaPorCliente(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
+        // Configuración del tipo de contenido y encabezado
+        response.setContentType("application/pdf");
+
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String fechaActual = dateFormatter.format(new Date());
+        String filename = "Factura_" + id + "_" + fechaActual + ".pdf";
+        response.setHeader("Content-Disposition", "inline; filename=" + filename);
+
+        // Obtener la factura específica
+        Optional<Factura> facturaOpt = iFacturaServices.BuscarporId(id);
+        if (facturaOpt.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Factura no encontrada");
+            return;
+        }
+
+        Factura factura = facturaOpt.get();
+
+        // Exportar la factura a PDF
+        FacturaExportPDF exporter = new FacturaExportPDF(factura); // Pasar una sola factura
+        exporter.Exportar(response);
+    }
+
 }
