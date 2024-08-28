@@ -1,6 +1,7 @@
 package com.FacturaExpress.FacturaExpress.Servicios.Implementaciones;
 
 import com.FacturaExpress.FacturaExpress.Entidades.Factura;
+import com.FacturaExpress.FacturaExpress.Entidades.Sector;
 import com.FacturaExpress.FacturaExpress.Repositorio.IFacturaRepository;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IFacturaServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,23 @@ public class FacturaServices implements IFacturaServices {
     @Override
     public void EliminarPorId(Integer id) {
         facturaRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Factura> BuscarPorTerminoPaginados(String searchTerm, Pageable pageable) {
+        return facturaRepository.findByClienteNombreContainingOrClienteApellidoContaining(searchTerm, searchTerm, pageable);
+    }
+    @Override
+    public Page<Factura> BuscarPorSectorPaginados(String searchSect, Pageable pageable) {
+        return facturaRepository.findByClienteSectorNombreContaining(searchSect, pageable);
+    }
+    @Override
+    public List<Sector> obtenerSectoresUnicos() {
+        return facturaRepository.findDistinctSectores();
+    }
+    @Override
+    public Page<Factura> BuscarPorSectorYNombresPaginados(String sector, String searchTerm, Pageable pageable) {
+        return facturaRepository.findByClienteSectorNombreContainingAndClienteNombreContainingOrClienteApellidoContaining(
+                sector, searchTerm, searchTerm, pageable);
     }
 }

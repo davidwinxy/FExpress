@@ -2,8 +2,10 @@ package com.FacturaExpress.FacturaExpress.Controladores;
 
 import com.FacturaExpress.FacturaExpress.Entidades.Cliente;
 import com.FacturaExpress.FacturaExpress.Entidades.Factura;
+import com.FacturaExpress.FacturaExpress.Entidades.Sector;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IClienteServices;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.IFacturaServices;
+import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.ISectorServices;
 import com.FacturaExpress.FacturaExpress.utilidades.FacturaExportPDF;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,25 +35,45 @@ public class FacturaController {
     private IClienteServices iClienteServices;
     @Autowired
     private IFacturaServices iFacturaServices;
+@GetMapping
+public String index(Model model,
+           @RequestParam("page") Optional<Integer> page,
+           @RequestParam("size") Optional<Integer> size,
+           @RequestParam("search") Optional<String> search,
+           @RequestParam("sector") Optional<String> sector) {
+    int currentPage = page.orElse(1) - 1;
+    int pageSize = size.orElse(5);
+    Pageable pageable = PageRequest.of(currentPage, pageSize);
 
-    @GetMapping
-    public String index(Model model,
-                        @RequestParam("page") Optional<Integer> page,
-                        @RequestParam("size") Optional<Integer> size) {
-        int currentPage = page.orElse(1) - 1;
-        int pageSize = size.orElse(5);
-        Pageable pageable = PageRequest.of(currentPage, pageSize);
-        Page<Factura> facturasPage = iFacturaServices.BuscarTodosPaginados(pageable);
+        Page<Factura> facturasPage;
+        if (sector.isPresent() && !sector.get().isEmpty() && search.isPresent() && !search.get().isEmpty()) {
+            facturasPage = iFacturaServices.BuscarPorSectorYNombresPaginados(sector.get(), search.get(), pageable);
+        } else if (sector.isPresent() && !sector.get().isEmpty()) {
+            facturasPage = iFacturaServices.BuscarPorSectorPaginados(sector.get(), pageable);
+        } else if (search.isPresent() && !search.get().isEmpty()) {
+            facturasPage = iFacturaServices.BuscarPorTerminoPaginados(search.get(), pageable);
+        } else {
+            facturasPage = iFacturaServices.BuscarTodosPaginados(pageable);
+        }
+        // Obtener lista de sectores únicos desde Factura
+        List<Sector> sectores = iFacturaServices.obtenerSectoresUnicos();
+        model.addAttribute("sectores", sectores);
+
+        if (facturasPage.isEmpty()) {
+            model.addAttribute("inf", "No se encontraron resultados para los criterios de búsqueda.");
+        }
         model.addAttribute("facturas", facturasPage);
+        model.addAttribute("search", search.orElse(""));
+        model.addAttribute("sector", sector.orElse(""));
 
         int totalPage = facturasPage.getTotalPages();
-        if (totalPage > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
-        return "factura/index";
+             if (totalPage > 0) {
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
+                .boxed()
+                .collect(Collectors.toList());
+        model.addAttribute("pageNumbers", pageNumbers);
+    }
+    return "factura/index";
     }
 
     @GetMapping("/create")
@@ -61,25 +83,6 @@ public class FacturaController {
         model.addAttribute("clientes", clientes);
         return "factura/create";
     }
-
-//    @PostMapping("/save")
-//    public String save(@ModelAttribute Factura factura, BindingResult result, Model model, RedirectAttributes attributes) {
-//        if (result.hasErrors()) {
-//            model.addAttribute("factura", factura);
-//            return "factura/create";
-//        }
-//
-//        iFacturaServices.CrearOEditar(factura);
-//
-//        boolean isEdit = (factura.getId() != null && iFacturaServices.BuscarporId(factura.getId()).isPresent());
-//        if (isEdit) {
-//            attributes.addFlashAttribute("msg", "Editado correctamente");
-//        } else {
-//            attributes.addFlashAttribute("msg", "Creado correctamente");
-//        }
-//
-//        return "redirect:/Facturas";
-//    }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Factura factura, BindingResult result, Model model, RedirectAttributes attributes) {
