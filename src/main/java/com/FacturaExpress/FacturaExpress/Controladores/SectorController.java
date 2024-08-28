@@ -83,9 +83,13 @@ public class SectorController {
     }
 
     @PostMapping("/delete")
-    public String delete( Sector sector, RedirectAttributes attributes){
-        sectorServices.EliminarPorId(sector.getId());
-        attributes.addFlashAttribute("msg", "Sector eliminado correctamente");
-        return "redirect:/Sectores";
-    }
+    public String delete(Sector sector, RedirectAttributes attributes){
+        if (sectorServices.tieneClientesAsignados(sector.getId())) {
+            attributes.addFlashAttribute("error", "No se puede eliminar el sector porque tiene clientes asignados.");
+            return "redirect:/Sectores";
+        }
+    sectorServices.EliminarPorId(sector.getId());
+    attributes.addFlashAttribute("msg", "Sector eliminado correctamente");
+    return "redirect:/Sectores";
+}
 }

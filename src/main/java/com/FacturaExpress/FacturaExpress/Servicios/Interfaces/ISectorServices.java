@@ -13,4 +13,7 @@ public interface ISectorServices {
     Optional<Sector> BuscarporId(Integer id);
     Sector CrearOEditar(Sector sector);
     void EliminarPorId(Integer id);
+
+    // Dentro de ISectorServices
+    public boolean tieneClientesAsignados(Integer sectorId);
 }

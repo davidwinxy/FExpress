@@ -41,4 +41,11 @@ public class SectorServices implements ISectorServices {
     public void EliminarPorId(Integer id) {
         sectorRepository.deleteById(id);
     }
+
+    @Override
+    public boolean tieneClientesAsignados(Integer sectorId) {
+        Sector sector = sectorRepository.findById(sectorId).orElse(null);
+        return sector != null && !sector.getClientes().isEmpty();
+    }
+
 }
