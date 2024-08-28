@@ -34,7 +34,7 @@ public class UsuarioController {
     @GetMapping
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1) - 1; // si no está seteado se asigna 1
-        int pageSize = size.orElse(5); // tamaño de la página, se asigna 5
+        int pageSize = size.orElse(500); // tamaño de la página, se asigna 5
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
         Page<Usuario> usuarios = usuarioService.buscarTodosPaginados(pageable);

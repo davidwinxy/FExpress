@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="Layouts/_mainLayout">
+      layout:decorate="Layouts/_mainLayout" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,16 @@
 </head>
 
 <div layout:fragment="content" class="container mt-5">
+
+
+    <div class="mb-3">
+        <a href="/usuarios/create" class="btn btn-primary"
+          >
+            Crear Nuevo Usuario
+        </a>
+    </div>
+
+
     <h1 class="mb-4">Lista de Usuarios</h1>
 
     <!-- Tabla de usuarios -->
@@ -33,6 +43,8 @@
         </tr>
         </tbody>
     </table>
+
+
 
 </div>
 
