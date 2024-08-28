@@ -55,26 +55,6 @@ public class FacturaController {
         model.addAttribute("clientes", clientes);
         return "factura/create";
     }
-
-//    @PostMapping("/save")
-//    public String save(@ModelAttribute Factura factura, BindingResult result, Model model, RedirectAttributes attributes) {
-//        if (result.hasErrors()) {
-//            model.addAttribute("factura", factura);
-//            return "factura/create";
-//        }
-//
-//        iFacturaServices.CrearOEditar(factura);
-//
-//        boolean isEdit = (factura.getId() != null && iFacturaServices.BuscarporId(factura.getId()).isPresent());
-//        if (isEdit) {
-//            attributes.addFlashAttribute("msg", "Editado correctamente");
-//        } else {
-//            attributes.addFlashAttribute("msg", "Creado correctamente");
-//        }
-//
-//        return "redirect:/Facturas";
-//    }
-
     @PostMapping("/save")
     public String save(@ModelAttribute Factura factura, BindingResult result, Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
@@ -99,7 +79,6 @@ public class FacturaController {
         Optional<Factura> factura = iFacturaServices.BuscarporId(id);
         if (factura.isPresent()) {
             model.addAttribute("factura", factura.get());
-//            model.addAttribute("fechaEmisionFormatted", factura.getFechaEmision().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             return "factura/details";
         } else {
             model.addAttribute("error", "Factura no encontrada");

@@ -1,64 +1,158 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout">
+
 <head>
-    <title>Eliminar Factura</title>
+    <title>Eliminar factura</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
-        .icon-button {
-            font-size: 1rem;
-            padding: 0.5rem;
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
         }
-        .table th, .table td {
-            text-align: center;
-            vertical-align: middle;
-            white-space: nowrap; /* Prevent text wrapping */
+        .header {
+            border-bottom: 2px solid #d9534f;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
-        .table-responsive {
-            overflow-x: auto;
+        .header h1 {
+            font-size: 1.75rem;
         }
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem; /* Space between buttons */
+        .form-group {
+            position: relative;
+            margin-bottom: 1rem;
         }
-        @media (max-width: 768px) {
-            .table-responsive {
-                overflow-x: auto;
-            }
+        .form-control {
+            padding-left: 2.75rem;
+        }
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+        }
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
+        }
+        .btn-danger:hover {
+            background-color: #c9302c;
+            border-color: #c12e2a;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault(); // Detener el envío del formulario
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.submit(); // Enviar el formulario si se confirma la eliminación
+                }
+            });
+        }
+    </script>
 </head>
+
 <body>
-<div layout:fragment="content" class="container mt-4">
-    <h1 class="mb-4">Eliminar Factura <i class="fas fa-file-invoice-dollar"></i></h1>
-
-    <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading">Confirmación de Eliminación</h4>
-        <p>¿Está seguro de que desea eliminar la factura con el ID <strong th:text="${factura.id}"></strong>? Esta acción no se puede deshacer.</p>
-        <hr>
-        <p class="mb-0">Cliente: <strong th:text="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"></strong></p>
-        <p class="mb-0">Dirección: <strong th:text="${factura.cliente.direccion}"></strong></p>
-        <p class="mb-0">Total a Pagar: <strong th:text="${factura.totalPagar}"></strong></p>
-    </div>
-    <form th:action="@{/Facturas/delete/{id}(id=${factura.id})}" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <div class="action-buttons">
-            <button type="submit" class="btn btn-danger btn-sm icon-button" onclick="return confirmDeletion(event)">
-                <i class="fas fa-trash-alt"></i> Eliminar
-            </button>
-            <a th:href="@{/Facturas}" class="btn btn-secondary btn-sm icon-button">
-                <i class="fas fa-arrow-left"></i> Cancelar
-            </a>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="header">
+            <h1 class="text-center mb-4"><i class="fas fa-file-invoice"></i> Eliminar factura</h1>
         </div>
-    </form>
-
+        <form th:action="@{/Facturas/delete}" method="post" onsubmit="confirmDelete(event)">
+            <input type="hidden" name="id" th:value="${factura.id}" />
+            <div class="form-group">
+                <label for="id">ID</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.id}" id="id" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cliente">Cliente</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.cliente.nombre}" id="cliente" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fechaEmision">Fecha de Emisión</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.fechaEmision}" id="fechaEmision" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fechaVencimiento">Fecha de Vencimiento</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.fechaVencimiento}" id="fechaVencimiento" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="consumoKwh">Consumo kWh</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.consumoKwh}" id="consumoKwh" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-bolt"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="numeroMedidor">Número de Medidor</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.numeroMedidor}" id="numeroMedidor" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="totalPagar">Total a Pagar</label>
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-icon" th:value="${factura.totalPagar}" id="totalPagar" readonly />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                <a th:href="@{/Facturas}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
+            </div>
+        </form>
+    </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

@@ -1,68 +1,208 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Layouts/_mainLayout">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Detalles de Factura</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Detalle de Factura</title>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
-        .icon-button {
-            font-size: 1rem;
-            padding: 0.5rem;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
-        .detail-section {
-            margin-bottom: 1.5rem;
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .detail-section h4 {
-            margin-bottom: 0.5rem;
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-control {
+            padding-left: 3rem; /* Adjust padding for icons */
+        }
+        .input-group-text {
+            padding: 0.375rem 0.75rem; /* Adjust padding to center icon */
+            font-size: 1.25rem; /* Adjust font size for icons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-outline-info {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-outline-info:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .btn-outline-danger {
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #ffffff;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #dee2e6;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .btn i {
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
-<div layout:fragment="content" class="container mt-4">
-    <h1 class="mb-4">Detalles de Factura <i class="fas fa-file-invoice-dollar"></i></h1>
+<div layout:fragment="content">
+    <div class="container">
+        <h1><i class="fas fa-file-invoice-dollar"></i> Detalle de Factura</h1>
+        <hr>
+        <form>
+            <div class="form-group">
+                <label for="id">ID de Factura</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="id" th:value="${factura.id}" readonly>
+                </div>
+            </div>
 
-    <div class="detail-section">
-        <h4>ID de Factura:</h4>
-        <p th:text="${factura.id}"></p>
+            <div class="form-group">
+                <label for="cliente">Cliente</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="cliente" th:value="${factura.cliente.nombre + ' ' + factura.cliente.apellido}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="sector">Sector</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="sector" th:value="${factura.cliente.sector.nombre}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="direccion" th:value="${factura.cliente.direccion}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaEmision">Fecha de Emisión</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="fechaEmision" th:value="${factura.fechaEmision}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaVencimiento">Fecha de Vencimiento</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="fechaVencimiento" th:value="${factura.fechaVencimiento}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="consumoKwh">Consumo (kWh)</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-bolt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="consumoKwh" th:value="${factura.consumoKwh}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="numeroMedidor">Número de Medidor</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="numeroMedidor" th:value="${factura.numeroMedidor}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="totalPagar">Total a Pagar</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="totalPagar" th:value="${factura.totalPagar}" readonly>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="text-center">
+            <a th:href="@{/Facturas/edit/{id}(id=${factura.id})}" class="btn btn-outline-info" onclick="return confirmEdit()"><i class="fas fa-edit"></i> Editar</a>
+            <a th:href="@{/Facturas/remove/{id}(id=${factura.id})}" class="btn btn-outline-danger" onclick="return confirmDelete()"><i class="fas fa-trash-alt"></i> Eliminar</a>
+            <a th:href="@{/Facturas}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
+        </div>
     </div>
-
-    <div class="detail-section">
-        <h4>Cliente:</h4>
-        <p th:text="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"></p>
-    </div>
-    <div class="detail-section">
-        <h4>Consumo (kWh):</h4>
-        <p th:text="${factura.consumoKwh}"></p>
-    </div>
-
-    <div class="detail-section">
-        <h4>Número de Medidor:</h4>
-        <p th:text="${factura.numeroMedidor}"></p>
-    </div>
-
-    <div class="detail-section">
-        <h4>Total a Pagar:</h4>
-        <p th:text="${factura.totalPagar}"></p>
-    </div>
-
-    <a th:href="@{/Facturas}" class="btn btn-outline-primary">
-        <i class="fas fa-arrow-left"></i> Volver a la lista
-    </a>
-
-    <a th:href="@{/Facturas/edit/{id}(id=${factura.id})}" class="btn btn-warning ml-2">
-        <i class="fas fa-edit"></i> Editar
-    </a>
-
-    <a th:href="@{/Facturas/remove/{id}(id=${factura.id})}" class="btn btn-danger ml-2">
-        <i class="fas fa-trash-alt"></i> Eliminar
-    </a>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmEdit() {
+        return confirm('¿Deseas editar esta factura?');
+    }
+
+    function confirmDelete() {
+        return confirm('¿Estás seguro de que deseas eliminar esta factura? ¡No podrás revertir esto!');
+    }
+</script>
 </body>
 </html>
