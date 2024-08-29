@@ -37,6 +37,8 @@ public class ClienteController {
     }
 
 
+
+
     @GetMapping("/infoContadores")
     public String infoContadores(Model model) {
         return "Cliente/infoContadores";  // Spring Boot buscará en src/main/resources/templates/empleados/manuales.html

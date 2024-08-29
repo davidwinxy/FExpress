@@ -2,22 +2,13 @@ package com.FacturaExpress.FacturaExpress.utilidades;
 
 import com.FacturaExpress.FacturaExpress.Entidades.Factura;
 import com.lowagie.text.*;
-import com.lowagie.text.Document;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Image;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import jakarta.servlet.http.HttpServletResponse;
+import com.lowagie.text.pdf.*;
 
+import jakarta.servlet.http.HttpServletResponse;
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 public class FacturaExportPDF {
     private Factura factura;
@@ -28,83 +19,113 @@ public class FacturaExportPDF {
 
     private void setCabeceraTabla(PdfPTable tabla) {
         PdfPCell celda = new PdfPCell();
+        Color colorCabecera = new Color(240, 240, 240); // Gris claro
+        celda.setBackgroundColor(colorCabecera);
+        celda.setPadding(10);
 
-        Color colorPersonalizado = new Color(100, 150, 200);
-        celda.setBackgroundColor(colorPersonalizado);
-        celda.setPadding(5);
+        Font fuenteCabecera = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        fuenteCabecera.setColor(Color.BLACK);
+        fuenteCabecera.setSize(12);
 
-        Font fuente = FontFactory.getFont(FontFactory.HELVETICA);
-        fuente.setColor(Color.white);
-
-        celda.setPhrase(new Phrase("ID", fuente));
-        tabla.addCell(celda);
-        celda.setPhrase(new Phrase("Nombre Cliente", fuente));
-        tabla.addCell(celda);
-        celda.setPhrase(new Phrase("Fecha Emisión", fuente));
-        tabla.addCell(celda);
-        celda.setPhrase(new Phrase("Fecha Vencimiento", fuente));
-        tabla.addCell(celda);
-        celda.setPhrase(new Phrase("Consumo Kwh", fuente));
-        tabla.addCell(celda);
-        celda.setPhrase(new Phrase("Número de Medidor", fuente));
-        tabla.addCell(celda);
-        celda.setPhrase(new Phrase("Total a Pagar", fuente));
-        tabla.addCell(celda);
+        // Encabezados de columna sin "ID"
+        String[] encabezados = {"Nombre Cliente", "Fecha Emisión", "Fecha Vencimiento", "Consumo Kwh", "Número de Medidor", "Total a Pagar"};
+        for (String encabezado : encabezados) {
+            celda.setPhrase(new Phrase(encabezado, fuenteCabecera));
+            tabla.addCell(celda);
+        }
     }
 
     private void setDatosTabla(PdfPTable tabla) {
-        // Añadir una fila con los datos de la factura
-        tabla.addCell(String.valueOf(factura.getId()));
-        tabla.addCell(factura.getCliente().getNombre()); // Mostrar el nombre del cliente
+        PdfPCell celda = new PdfPCell();
+        celda.setPadding(8);
+
+        // Datos de la factura sin ID
+        tabla.addCell(factura.getCliente().getNombre());
         tabla.addCell(factura.getFechaEmision().toString());
         tabla.addCell(factura.getFechaVencimiento().toString());
         tabla.addCell(String.valueOf(factura.getConsumoKwh()));
         tabla.addCell(factura.getNumeroMedidor());
-        tabla.addCell(String.format("%.2f", factura.getTotalPagar())); // Formatear el total con 2 decimales
+        tabla.addCell(String.format("%.2f", factura.getTotalPagar()));
     }
 
     public void Exportar(HttpServletResponse response) throws IOException {
-        // Crear un nuevo documento PDF con tamaño A4
-        Document documento = new Document(com.lowagie.text.PageSize.A4);
+        Document documento = new Document(PageSize.A4);
+        PdfWriter writer = PdfWriter.getInstance(documento, response.getOutputStream());
 
-        // Obtener una instancia de PdfWriter para escribir en el documento
-        PdfWriter.getInstance(documento, response.getOutputStream());
-
-        // Abrir el documento para agregar contenido
         documento.open();
 
-        try (InputStream inputStream = getClass().getResourceAsStream("/static/dist/img/logo.png")) {
+        // Encabezado con logo y nombre centrados
+        PdfPTable encabezadoTabla = new PdfPTable(2);
+        encabezadoTabla.setWidthPercentage(100);
+        encabezadoTabla.setSpacingBefore(15);
+        encabezadoTabla.setWidths(new float[]{1f, 4f});
+
+        // Celda para el logo
+        PdfPCell logoCelda = new PdfPCell();
+        try (InputStream inputStream = getClass().getResourceAsStream("/static/dist/img/logo.jpg")) {
             if (inputStream != null) {
-                Image imagen = Image.getInstance(ImageIO.read(inputStream), null);
-                imagen.scaleToFit(100, 50);
-                imagen.setAbsolutePosition(50, 750);
-                documento.add(imagen);
-            } else {
-                System.out.println("No se pudo cargar la imagen");
+                Image logo = Image.getInstance(ImageIO.read(inputStream), null);
+                logo.scaleToFit(100, 50); // Ajustar tamaño según necesidad
+                logo.setAlignment(Image.ALIGN_CENTER);
+                logoCelda.addElement(logo);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        documento.add(new Paragraph(" "));
+        logoCelda.setBorder(Rectangle.NO_BORDER);
+        logoCelda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        encabezadoTabla.addCell(logoCelda);
+
+        // Celda vacía para el espacio
+        PdfPCell espacioCelda = new PdfPCell();
+        espacioCelda.setBorder(Rectangle.NO_BORDER);
+        encabezadoTabla.addCell(espacioCelda);
+
+        documento.add(encabezadoTabla);
+
+        // Espaciado
         documento.add(new Paragraph(" "));
 
-        Font fuente = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        fuente.setColor(Color.BLACK);
-        fuente.setSize(18);
-
-        Paragraph titulo = new Paragraph("Factura Detallada", fuente);
+        // Título en el cuerpo de la página
+        Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        fuenteTitulo.setSize(24);
+        fuenteTitulo.setColor(new Color(0, 51, 102)); // Azul oscuro
+        Paragraph titulo = new Paragraph("Factura Express", fuenteTitulo);
         titulo.setAlignment(Paragraph.ALIGN_CENTER);
         documento.add(titulo);
 
-        PdfPTable tabla = new PdfPTable(7);
+        // Espaciado
+        documento.add(new Paragraph(" "));
+
+        // Título detallado
+        Font fuenteTituloDetallado = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        fuenteTituloDetallado.setSize(18);
+        fuenteTituloDetallado.setColor(new Color(0, 51, 102)); // Azul oscuro
+        Paragraph tituloDetallado = new Paragraph("Factura Detallada", fuenteTituloDetallado);
+        tituloDetallado.setAlignment(Paragraph.ALIGN_CENTER);
+        documento.add(tituloDetallado);
+
+        // Espaciado
+        documento.add(new Paragraph(" "));
+
+        // Tabla de datos
+        PdfPTable tabla = new PdfPTable(6); // Cambiado a 6 columnas
         tabla.setWidthPercentage(100);
         tabla.setSpacingBefore(15);
-        tabla.setWidths(new float[]{1f, 2f, 2f, 2f, 2f, 2f, 2f});
+        tabla.setWidths(new float[]{2f, 2f, 2f, 2f, 2f, 2f}); // Ajustado a 6 columnas
 
         setCabeceraTabla(tabla);
         setDatosTabla(tabla);
-
         documento.add(tabla);
+
+        // Espaciado
+        documento.add(new Paragraph(" "));
+
+        // Pie de página
+        Font fuentePie = FontFactory.getFont(FontFactory.HELVETICA);
+        fuentePie.setSize(10);
+        fuentePie.setColor(new Color(0, 51, 102)); // Azul oscuro
+        Paragraph pie = new Paragraph("Gracias por su compra. Para más información, visite nuestro sitio web: www.facturaexpress.com", fuentePie);
+        pie.setAlignment(Paragraph.ALIGN_CENTER);
+        documento.add(pie);
 
         documento.close();
     }

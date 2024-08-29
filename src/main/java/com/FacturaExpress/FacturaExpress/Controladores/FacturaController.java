@@ -35,6 +35,14 @@ public class FacturaController {
     private IClienteServices iClienteServices;
     @Autowired
     private IFacturaServices iFacturaServices;
+
+
+
+    @GetMapping("/facturas")
+    public String facturas(Model model) {
+        return "factura/index";  // Spring Boot buscará en src/main/resources/templates/empleados/manuales.html
+    }
+
 @GetMapping
 public String index(Model model,
            @RequestParam("page") Optional<Integer> page,
@@ -169,5 +177,7 @@ public String index(Model model,
         FacturaExportPDF exporter = new FacturaExportPDF(factura); // Pasar una sola factura
         exporter.Exportar(response);
     }
+
+
 
 }

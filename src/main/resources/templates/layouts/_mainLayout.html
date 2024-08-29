@@ -128,12 +128,21 @@
                             <p>Manuales</p>
                         </a>
                     </li>
+                    <li class="nav-item" sec:authorize="hasAuthority('admin') or hasAuthority('empleado')">
+                        <a href="/Facturas" class="nav-link" title="Instrucciones para Empleados">
+                            <i class="fas fa-info-circle nav-icon"></i>
+                            <p>facturas</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="/logout" class="nav-link" title="cerrar sesion">
                             <i class="fas fa-sign-out-alt nav-icon"></i>
                             <p>cerrar sesion</p>
                         </a>
                     </li>
+
+
+
                 </ul>
             </nav>
 
