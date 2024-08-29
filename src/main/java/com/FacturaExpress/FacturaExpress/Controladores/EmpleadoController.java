@@ -24,6 +24,9 @@ public class EmpleadoController {
     @Autowired
     private IEmpleadosServices empleadoServices;
 
+
+
+
     @GetMapping
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1) - 1;

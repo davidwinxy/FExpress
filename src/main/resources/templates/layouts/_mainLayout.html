@@ -84,30 +84,48 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Empleados Link -->
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAuthority('admin')" >
                         <a href="/Empleados" class="nav-link" title="Gestionar empleados">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Empleados</p>
                         </a>
                     </li>
                     <!-- Clientes Link -->
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAuthority('admin') or hasAuthority('empleado')">
                         <a href="/Cliente" class="nav-link" title="Gestionar clientes">
                             <i class="nav-icon fas fa-user"></i>
                             <p>Clientes</p>
                         </a>
                     </li>
                     <!-- Sectores Link -->
-                    <li class="nav-item">
-                        <a href="/Sectores" class="nav-link" title="Gestionar sectores">
+                    <li class="nav-item" sec:authorize="hasAuthority('admin') or hasAuthority('empleado')">
+                    <a href="/Sectores" class="nav-link" title="Gestionar sectores">
                             <i class="nav-icon fas fa-lightbulb"></i>
                             <p>Sectores</p>
                         </a>
                     </li>
-                    <li class="nav-item"  sec:authorize="hasAuthority('admin')">
+                    <li class="nav-item"  sec:authorize="hasAuthority('admin')" >
                         <a href="/usuarios" class="nav-link" title="Gestionar usuarios">
                             <i class="nav-icon fas fa-users"></i>
                             <p>usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAuthority('admin') or hasAuthority('cliente')">
+                        <a href="/Cliente/informacion" class="nav-link" title="informacion">
+                            <i class="fas fa-info-circle nav-icon"></i>
+                            <p>contactos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAuthority('admin') or hasAuthority('cliente')">
+                        <a href="/Cliente/infoContadores" class="nav-link" title="informacion de contadores">
+                            <i class="fas fa-info-circle nav-icon"></i>
+                            <p>informacion</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAuthority('admin') or hasAuthority('empleado')">
+                        <a href="/Cliente/manuales" class="nav-link" title="Instrucciones para Empleados">
+                            <i class="fas fa-info-circle nav-icon"></i>
+                            <p>Manuales</p>
                         </a>
                     </li>
                     <li class="nav-item">
