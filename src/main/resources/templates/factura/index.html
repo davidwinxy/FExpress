@@ -81,13 +81,18 @@
                 </th:block>
             </select>
         </div>
-        <button class="btn btn-primary" type="submit">Buscar</button>
+        <button class="btn btn-primary btn-icon-split" type="submit">
+    <span class="icon">
+        <i class="fas fa-search"></i>
+    </span>
+            <span class="text">Buscar</span>
+        </button>
     </form>
 
     <h1 class="mb-4">Facturas <i class="fas fa-file-invoice-dollar"></i></h1>
 
     <a th:href="@{/Facturas/create}" class="btn btn-primary mb-3">
-        <i class="fas fa-plus-circle"></i> Crear nueva factura
+         <i class="fas fa-file-invoice-dollar"></i> Crear nueva factura
     </a>
 
     <div class="table-responsive">
