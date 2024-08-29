@@ -16,4 +16,5 @@ public interface ISectorServices {
 
     // Dentro de ISectorServices
     public boolean tieneClientesAsignados(Integer sectorId);
+
 }

@@ -2,7 +2,9 @@ package com.FacturaExpress.FacturaExpress.Servicios.Implementaciones;
 
 import com.FacturaExpress.FacturaExpress.Entidades.Sector;
 import com.FacturaExpress.FacturaExpress.Repositorio.ISectorRepository;
+import com.FacturaExpress.FacturaExpress.Repositorios.IClienteRepository;
 import com.FacturaExpress.FacturaExpress.Servicios.Interfaces.ISectorServices;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class SectorServices implements ISectorServices {
     @Autowired
     private ISectorRepository sectorRepository;
+    @Autowired
+    private IClienteRepository clienteRepository;
 
     @Override
     public Page<Sector> BuscarTodosPaginados(Pageable pageable)
@@ -41,11 +45,9 @@ public class SectorServices implements ISectorServices {
     public void EliminarPorId(Integer id) {
         sectorRepository.deleteById(id);
     }
-
     @Override
     public boolean tieneClientesAsignados(Integer sectorId) {
         Sector sector = sectorRepository.findById(sectorId).orElse(null);
         return sector != null && !sector.getClientes().isEmpty();
     }
-
 }
