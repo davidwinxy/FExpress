@@ -30,6 +30,24 @@ public class ClienteController {
     @Autowired
     private ISectorServices sectorServices;
 
+
+    @GetMapping("/informacion")
+    public String informacion(Model model) {
+        return "Cliente/informacion";  // Spring Boot buscará en src/main/resources/templates/empleados/manuales.html
+    }
+
+
+    @GetMapping("/infoContadores")
+    public String infoContadores(Model model) {
+        return "Cliente/infoContadores";  // Spring Boot buscará en src/main/resources/templates/empleados/manuales.html
+    }
+
+
+    @GetMapping("/manuales")
+    public String manuales(Model model) {
+        return "Cliente/manuales";  // Spring Boot buscará en src/main/resources/templates/empleados/manuales.html
+    }
+
     @GetMapping
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1) - 1;

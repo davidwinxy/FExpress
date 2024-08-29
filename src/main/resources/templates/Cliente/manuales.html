@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<head>
+    <title>Instrucciones para Empleados - Servicios Eléctricos</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        .info-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .info-section p, .info-section li {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #6c757d;
+            text-align: justify;
+        }
+
+        .feature-item {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item p {
+            font-size: 1.1rem;
+            color: #343a40;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            color: #343a40;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: #007bff;
+        }
+
+        .decorative-icon {
+            font-size: 3rem;
+            color: #007bff;
+        }
+
+        .info-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <div class="info-section">
+        <h2><i class="fas fa-bolt decorative-icon"></i> Instrucciones para Empleados de Servicios Eléctricos</h2>
+        <p>Bienvenido a la guía completa para empleados de la compañía de servicios eléctricos. En esta sección encontrarás información esencial sobre medidores de luz, cómo medir correctamente el consumo eléctrico, y consejos prácticos para realizar tu trabajo de manera segura y eficiente.</p>
+
+        <div class="section-title"><i class="fas fa-tachometer-alt"></i> Medidores de Luz</div>
+        <p>Los medidores de luz son dispositivos esenciales en el sistema de distribución eléctrica. Su función principal es registrar la cantidad de electricidad que consume un hogar o una empresa, lo cual permite facturar al cliente en base a su uso. Existen varios tipos de medidores, entre ellos:</p>
+        <ul>
+            <li><strong>Medidores electromecánicos:</strong> Utilizan un disco de aluminio que gira en función del consumo eléctrico. Estos son los medidores más antiguos y, aunque están siendo reemplazados gradualmente, aún son comunes en muchas áreas.</li>
+            <li><strong>Medidores electrónicos:</strong> Son digitales y no tienen partes móviles. Estos medidores son más precisos y pueden registrar el consumo en diferentes periodos de tiempo, permitiendo tarifas variables según la hora del día.</li>
+            <li><strong>Medidores inteligentes:</strong> Estos medidores avanzados no solo registran el consumo eléctrico, sino que también pueden comunicarse en tiempo real con la empresa de servicios eléctricos, facilitando la lectura remota y la gestión energética.</li>
+        </ul>
+
+        <div class="image-container">
+            <img src="https://imgs.search.brave.com/RtwQq-RV_cgDldOH65074RUSLpV3Rey4MwQXi_a61t8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9ibG9n/LmhvbGFsdXouY29t/L2hzLWZzL2h1YmZz/L0ltcG9ydGVkX0Js/b2dfTWVkaWEvQ29u/dGFkb3JfX0Jsb2ct/MS5qcGc_d2lkdGg9/ODYyJmhlaWdodD00/MDAmbmFtZT1Db250/YWRvcl9fQmxvZy0x/LmpwZw" alt="Medidor de Luz" class="info-image">
+        </div>
+
+        <div class="section-title"><i class="fas fa-calculator"></i> Cómo Medir el Consumo Eléctrico</div>
+        <p>Para medir correctamente el consumo eléctrico de un cliente, sigue estos pasos:</p>
+        <ol>
+            <li>Verifica que el medidor esté en buen estado. Si notas algún daño físico en el dispositivo, repórtalo antes de intentar tomar una lectura.</li>
+            <li>Observa el tipo de medidor. Si es un medidor electromecánico, cuenta las revoluciones del disco para determinar el consumo. Si es un medidor digital, lee el valor directamente en la pantalla.</li>
+            <li>Anota la lectura actual y compárala con la lectura anterior para calcular el consumo durante el periodo de facturación.</li>
+            <li>En medidores inteligentes, verifica si la lectura se ha transmitido automáticamente al sistema de la empresa. Si no es así, ingresa manualmente la lectura.</li>
+        </ol>
+
+        <div class="image-container">
+            <img src="https://imgs.search.brave.com/UhwQjd5qvdxhpEyhpKV2-jxaipA0ukCIkHfCrRla4Wc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oYXJk/em9uZS5lcy9hcHAv/dXBsb2Fkcy1oYXJk/em9uZS5lcy8yMDIw/LzEwL21lZGlkb3Jl/cy1lbmVyZ2lhLmpw/Zw" alt="Medición de Consumo Eléctrico" class="info-image">
+        </div>
+
+        <div class="section-title"><i class="fas fa-lightbulb"></i> Comprendiendo los Vatios (Watts)</div>
+        <p>El vatio (Watt) es la unidad básica de potencia eléctrica en el Sistema Internacional de Unidades. Un vatio es equivalente a un julio por segundo (J/s), y representa la cantidad de energía utilizada o generada por segundo.</p>
+        <p>En el contexto de la electricidad residencial y comercial, el consumo eléctrico se mide en kilovatios-hora (kWh), que es la cantidad de energía consumida cuando se usa un kilovatio de potencia durante una hora.</p>
+        <p>Para calcular el consumo en kWh, utiliza la siguiente fórmula:</p>
+        <blockquote>
+            <strong>Consumo (kWh) = Potencia (kW) × Tiempo (horas)</strong>
+        </blockquote>
+
+
+
+        <div class="section-title"><i class="fas fa-exclamation-triangle"></i> Seguridad en el Trabajo con Electricidad</div>
+        <p>La seguridad es primordial cuando se trabaja con electricidad. Aquí tienes algunas pautas de seguridad que debes seguir:</p>
+        <ul>
+            <li>Usa siempre equipo de protección personal (EPP), como guantes aislantes y gafas de protección.</li>
+            <li>Antes de trabajar en una instalación eléctrica, asegúrate de que esté desconectada o que la energía haya sido bloqueada.</li>
+            <li>Evita el uso de herramientas metálicas cerca de circuitos eléctricos activos.</li>
+            <li>Si trabajas en exteriores, ten en cuenta las condiciones climáticas. La electricidad y el agua son una combinación peligrosa.</li>
+            <li>Mantén siempre una distancia segura de las líneas eléctricas de alta tensión y utiliza las herramientas adecuadas para el trabajo.</li>
+        </ul>
+
+        <div class="image-container">
+            <img src="https://imgs.search.brave.com/6_jBAFpNpFSZYgOXaA5N6JNMUMarIRwIPCLhUw5uBRk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hcHJl/bmRlLmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyNC8wMS9n/ZXN0aW9uLWRlLXBy/b3llY3Rvcy1lbGVj/dHJpY29zLndlYnA" alt="Seguridad Eléctrica" class="info-image">
+        </div>
+
+        <div class="section-title"><i class="fas fa-tools"></i> Consejos Adicionales para la Toma de Medidas</div>
+        <p>Para asegurar la precisión en la toma de medidas y la lectura de medidores, considera los siguientes consejos:</p>
+        <ul>
+            <li>Verifica la calibración del medidor periódicamente para asegurarte de que está funcionando correctamente.</li>
+            <li>Siempre lleva un registro detallado de las lecturas anteriores para identificar cualquier anomalía o posible fraude eléctrico.</li>
+            <li>En caso de que un cliente tenga dudas sobre su consumo, explícale cómo funciona el medidor y cómo se calculan las facturas de electricidad.</li>
+            <li>Si un medidor está ubicado en un área de difícil acceso, usa una linterna y herramientas adecuadas para garantizar una lectura precisa y segura.</li>
+        </ul>
+
+        <div class="section-title"><i class="fas fa-cogs"></i> Problemas Comunes y Soluciones</div>
+        <p>A continuación, se presentan algunos problemas comunes que los empleados pueden encontrar al tomar lecturas de medidores, junto con sus soluciones:</p>
+        <ul>
+            <li><strong>Lectura inexacta:</strong> Verifica si el medidor está correctamente instalado y si no hay interferencias físicas que puedan afectar la medición.</li>
+            <li><strong>Medidor dañado:</strong> Si el medidor está roto o presenta signos de daño, repórtalo inmediatamente para su reemplazo.</li>
+            <li><strong>Acceso restringido:</strong> En algunas ocasiones, el medidor puede estar ubicado en un área a la que es difícil acceder. Solicita la asistencia del cliente para garantizar que puedas tomar la lectura de manera segura.</li>
+            <li><strong>Interferencia eléctrica:</strong> Asegúrate de que no haya dispositivos electrónicos cercanos que puedan interferir con el funcionamiento del medidor, especialmente en el caso de los medidores digitales.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- jQuery, Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

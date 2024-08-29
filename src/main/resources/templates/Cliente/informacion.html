@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<head>
+    <title>Información sobre nuestro servicio</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .icon-button:hover {
+            background-color: #007bff;
+            transform: scale(1.05);
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem; /* Space between buttons */
+        }
+        #spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+        .info-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .info-section h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .info-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #6c757d;
+            text-align: center;
+        }
+        .feature-item {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .feature-item i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+        .feature-item p {
+            font-size: 1.1rem;
+            color: #343a40;
+        }
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <div class="info-section">
+        <h2>Bienvenido a FacturaExpress</h2>
+        <p>FacturaExpress es su solución de confianza para la gestión eficiente de la facturación de consumo eléctrico.</p>
+
+        <div class="row mt-5">
+            <div class="col-md-4 feature-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <p>Acceda a sus facturas en cualquier momento</p>
+            </div>
+            <div class="col-md-4 feature-item">
+                <i class="fas fa-bell"></i>
+                <p>Reciba notificaciones automáticas de pagos pendientes</p>
+            </div>
+            <div class="col-md-4 feature-item">
+                <i class="fas fa-chart-line"></i>
+                <p>Analice su consumo con reportes detallados</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 feature-item">
+                <i class="fas fa-users"></i>
+                <p>Gestione múltiples cuentas de electricidad en un solo lugar</p>
+            </div>
+            <div class="col-md-6 feature-item">
+                <i class="fas fa-lightbulb"></i>
+                <p>Optimice su consumo y reduzca costos</p>
+            </div>
+        </div>
+        <div class="contact-info">
+            <h2>Datos de Contacto</h2>
+            <p><i class="fas fa-phone"></i> Teléfono: +503 2429-9701+</p>
+            <p><i class="fas fa-envelope"></i> Correo: esfe@agape.edu.sv</p>
+            <p><i class="fas fa-map-marker-alt"></i> Dirección: Km 63, carretera San salvador- Sonsonate., Sonsonate, El Salvador</p>
+        </div>
+
+
+        <p class="text-center">¡Gracias por confiar en nosotros para su gestión de facturación de electricidad!</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

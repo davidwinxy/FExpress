@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<head>
+    <title>Información sobre Contadores Eléctricos</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        .icon-button {
+            font-size: 1rem;
+            padding: 0.5rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .icon-button:hover {
+            background-color: #007bff;
+            transform: scale(1.05);
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        #spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+        .info-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .info-section h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .info-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #6c757d;
+            text-align: center;
+        }
+        .feature-item {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .feature-item img {
+            width: 100%;
+            max-width: 250px; /* Limita el ancho máximo de la imagen */
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .feature-item p {
+            font-size: 1.1rem;
+            color: #343a40;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+    <div class="info-section">
+        <h2>Información sobre Contadores Eléctricos</h2>
+        <p>Los contadores eléctricos son esenciales para medir el consumo de electricidad en los hogares y negocios. A continuación, te explicamos cómo funcionan y cómo se calcula el consumo de electricidad.</p>
+
+        <div class="row mt-5">
+            <div class="col-md-4 feature-item">
+                <img src="https://imgs.search.brave.com/wbWzGhKLkSBpbbLZGbkCXzPIFt8CA8VZtb4vp8SfF-s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cmVwc29sLmVzL2Nv/bnRlbnQvZGFtL2lt/YWdlcy1lY29tbWVy/Y2UvcGFydGljdWxh/cmVzL2FzZXNvcmFt/aWVudG8vY2FyZHMt/YXNlc29yYW1pZW50/by9jYXJkLXBvc3Qt/Y29tby1mdW5jaW9u/YS1jb250YWRvci1k/ZS1sdXouanBn" alt="Contador eléctrico moderno">
+                <p>Contadores eléctricos modernos permiten una medición precisa del consumo energético.</p>
+            </div>
+            <div class="col-md-4 feature-item">
+                <img src="https://imgs.search.brave.com/6KJ2rCe5IJ3yhOqjZdfzoZ9Ob23HDEzgLjHVZ-1ECCM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbmVs/ZGVjLmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyNC8wOC9N/ZWRpZG9yLWRlLWx1/ei1pbnRlcm5vLW1v/bm9mYXNpY28tYmlm/aWxhci1tYXhtZXRl/ci5qcGc" alt="Instalación de un nuevo contador">
+                <p>Los nuevos contadores facilitan la gestión remota y la lectura automática del consumo.</p>
+            </div>
+            <div class="col-md-4 feature-item">
+                <img src="https://imgs.search.brave.com/O3zCkISLRddQXEk86AaMo9Z_UizOo3D3DcmhKXqvnJs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9qZGVs/ZWN0cmljb3MuY29t/LmNvL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzAzL21lZGlk/b3Jlcy1kZS1lbmVy/ZyVDMyVBRGEtZWwl/QzMlQTljdHJpY2Et/MS0xMDI0eDU3Ni5q/cGc" alt="Funcionamiento de un contador de luz">
+                <p>El contador mide la electricidad consumida en kilovatios-hora (kWh), la cual se calcula multiplicando la potencia por el tiempo de uso.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>¿Cómo se calcula el consumo eléctrico?</h4>
+                <p>El consumo eléctrico se mide en kilovatios-hora (kWh). Para calcular el consumo de un dispositivo, se multiplica su potencia en kilovatios (kW) por el tiempo en horas que se utiliza. Por ejemplo, si tienes un aparato de 1 kW que funciona durante 3 horas, consumirá 3 kWh.</p>
+                <p>Los contadores eléctricos registran este consumo y permiten a las compañías eléctricas facturar de manera precisa a sus clientes.</p>
+            </div>
+        </div>
+
+        <p class="text-center mt-4">¡Conoce tu consumo y optimiza tu energía con la ayuda de tu contador eléctrico!</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
