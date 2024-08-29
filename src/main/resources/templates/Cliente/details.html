@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout">
+      layout:decorate="Layouts/_mainLayout">
 
 <head>
-    <title>Detalle del Cliente</title>
-
+    <title>Detalle del cliente</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -88,49 +88,103 @@
         }
     </style>
 </head>
-
 <body>
 <div layout:fragment="content">
     <div class="container">
-        <h1>Detalle del Cliente</h1>
+        <h1><i class="fas fa-id-badge"></i> Detalle del cliente</h1>
         <hr>
-        <dl class="dl-horizontal">
-            <dt>ID</dt>
-            <dd th:text="${cliente.id}"></dd>
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="nombre" th:value="${cliente.nombre}" readonly>
+                </div>
+            </div>
 
-            <dt>Nombre</dt>
-            <dd th:text="${cliente.nombre}"></dd>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="apellido" th:value="${cliente.apellido}" readonly>
+                </div>
+            </div>
 
-            <dt>Apellido</dt>
-            <dd th:text="${cliente.apellido}"></dd>
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="correo" th:value="${cliente.correo}" readonly>
+                </div>
+            </div>
 
-            <dt>Correo</dt>
-            <dd th:text="${cliente.correo}"></dd>
+            <div class="form-group">
+                <label for="dui">DUI</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="dui" th:value="${cliente.dui}" readonly>
+                </div>
+            </div>
 
-            <dt>DUI</dt>
-            <dd th:text="${cliente.dui}"></dd>
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="telefono" th:value="${cliente.telefono}" readonly>
+                </div>
+            </div>
 
-            <dt>Dirección</dt>
-            <dd th:text="${cliente.direccion}"></dd>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="direccion" th:value="${cliente.direccion}" readonly>
+                </div>
+            </div>
 
-            <dt>Teléfono</dt>
-            <dd th:text="${cliente.telefono}"></dd>
-
-            <dt>Sector</dt>
-            <dd th:text="${cliente.sector.nombre}"></dd> <!-- Suponiendo que 'sector' es un objeto con 'nombre' -->
-
-
-        </dl>
+            <div class="form-group">
+                <label for="sector">Sector</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-building"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="sector" th:value="${cliente.sector.nombre}" readonly>
+                </div>
+            </div>
+        </form>
         <hr>
         <div class="text-center">
-            <a th:href="@{/Cliente/edit/{id}(id=${cliente.id})}" class="btn btn-outline-info">Editar</a>
-            <a th:href="@{/Cliente/remove/{id}(id=${cliente.id})}" class="btn btn-outline-danger">Eliminar</a>
-            <a th:href="@{/Cliente}" class="btn btn-secondary">Regresar</a>
+            <a th:href="@{/Cliente/edit/{id}(id=${cliente.id})}" class="btn btn-outline-info" onclick="return confirmEdit()"><i class="fas fa-edit"></i> Editar</a>
+            <a th:href="@{/Cliente/remove/{id}(id=${cliente.id})}" class="btn btn-outline-danger" onclick="return confirmDelete()"><i class="fas fa-trash-alt"></i> Eliminar</a>
+            <a th:href="@{/Cliente}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
 </div>
+
+<!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmEdit() {
+        return confirm('¿Deseas editar este cliente?');
+    }
+
+    function confirmDelete() {
+        return confirm('¿Estás seguro de que deseas eliminar este cliente? ¡No podrás revertir esto!');
+    }
+</script>
 </body>
 </html>

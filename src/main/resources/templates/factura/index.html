@@ -61,8 +61,8 @@
                 timer: 3000,
                 timerProgressBar: true,
                 willClose: () => {
-                window.location.href = "/Facturas";
-            }
+                    window.location.href = "/Facturas";
+                }
             });
         </script>
     </div>
@@ -105,20 +105,20 @@
             <tbody>
             <tr th:each="item : ${facturas}">
                 <td th:text="${item.id}"></td>
-                <td th:text="${item.cliente.nombre} + '' + ${item.cliente.apellido}"></td>
+                <td th:text="${item.cliente.nombre} + ' ' + ${item.cliente.apellido}"></td>
                 <td th:text="${item.cliente.direccion}"></td>
                 <td th:text="${item.cliente.sector.nombre}"></td>
                 <td th:text="${item.totalPagar}"></td>
                 <td class="action-buttons">
-                    <a th:href="@{/Facturas/details/{id}(id=${item.id})}" class="btn btn-info btn-sm icon-button" title="Ver detalles">
+                    <a th:href="@{/Facturas/details/{id}(id=${item.id})}" class="btn btn-info btn-sm icon-button" data-toggle="tooltip" title="Ver detalles de la factura">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a th:href="@{/Facturas/edit/{id}(id=${item.id})}" class="btn btn-warning btn-sm icon-button" title="Editar">
+                    <a th:href="@{/Facturas/edit/{id}(id=${item.id})}" class="btn btn-warning btn-sm icon-button" data-toggle="tooltip" title="Editar información de la factura">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a th:href="@{/Facturas/remove/{id}(id=${item.id})}" class="btn btn-danger btn-sm icon-button" title="Eliminar">
+                    <a th:href="@{/Facturas/remove/{id}(id=${item.id})}" class="btn btn-danger btn-sm icon-button" data-toggle="tooltip" title="Eliminar factura">
                         <i class="fas fa-trash-alt"></i>
-                    </a>
+                        </a>
                 </td>
             </tr>
             </tbody>
